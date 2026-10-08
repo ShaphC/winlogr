@@ -1,0 +1,2 @@
+import { ReflectionForm } from "@/components/forms";
+export default function Page(){return <><span className="eyebrow">YOUR WEEKLY CHECK-IN</span><h1>How did this week go?</h1><p className="lead">A few minutes now can save hours of remembering later.</p><div className="prompts"><span>What did you finish?</span><span>What problem did you solve?</span><span>Who did you help?</span><span>What did you learn?</span><span>Did anyone recognize your work?</span></div><section className="card"><ReflectionForm/></section></>;}

@@ -1,0 +1,372 @@
+/* WinLog landing page */
+.wl-home .wl-container {
+  width: min(1120px, calc(100% - 64px));
+  margin-inline: auto;
+}
+.wl-nav {
+  max-width: 1184px;
+}
+.wl-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding-block: 92px 86px;
+}
+.wl-hero h1 {
+  font-size: clamp(46px, 5.5vw, 76px);
+  line-height: 1.06;
+  letter-spacing: -3.5px;
+  margin: 22px 0;
+}
+.wl-hero h1 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  color: var(--accent);
+}
+.wl-hero .lead {
+  max-width: 510px;
+  font-size: 18px;
+  line-height: 1.75;
+}
+.wl-hero-actions {
+  margin-top: 28px;
+  gap: 22px;
+  font-size: 14px;
+}
+.wl-preview {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 22px 65px color-mix(in srgb, var(--ink) 8%, transparent);
+  transform: rotate(1deg);
+  overflow: hidden;
+}
+.wl-preview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 19px 25px;
+  border-bottom: 1px solid var(--line);
+}
+.wl-preview-top .brand {
+  font-size: 20px;
+}
+.wl-chip {
+  font-size: 10px;
+  background: var(--soft);
+  border-radius: 20px;
+  padding: 4px 10px;
+  color: var(--muted);
+}
+.wl-preview-body {
+  padding: 30px;
+}
+.wl-preview-body h2 {
+  font-size: 27px;
+  margin: 9px 0 27px;
+}
+.wl-example {
+  display: flex;
+  gap: 17px;
+  position: relative;
+  padding-bottom: 26px;
+}
+.wl-example:not(:last-of-type)::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 13px;
+  bottom: 1px;
+  width: 1px;
+  background: var(--line);
+}
+.wl-example-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.wl-example-meta {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.wl-example p {
+  font-size: 15px;
+  margin: 7px 0 0;
+  line-height: 1.65;
+}
+.wl-preview-note {
+  background: var(--soft);
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 12px;
+}
+.wl-preview-note span {
+  margin-right: 8px;
+}
+.wl-strip {
+  border-block: 1px solid var(--line);
+  padding: 24px 0;
+  text-align: center;
+  font-size: 16px;
+}
+.wl-strip span {
+  color: var(--muted);
+}
+.wl-section {
+  padding-block: 80px;
+}
+.wl-section-heading h2,
+.wl-purpose h2,
+.wl-final h2 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -1.8px;
+  margin: 16px 0;
+}
+.wl-section-heading .lead {
+  font-size: 17px;
+}
+.wl-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  margin-top: 45px;
+}
+.wl-steps article {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.wl-step-number {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.wl-steps h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  margin: 16px 0 10px;
+}
+.wl-steps p {
+  font-size: 15px;
+  color: var(--muted);
+  min-height: 100px;
+}
+.wl-note {
+  background: var(--soft);
+  padding: 18px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.wl-purpose {
+  background: var(--panel);
+  border-block: 1px solid var(--line);
+  padding-block: 65px;
+}
+.wl-purpose-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 65px;
+}
+.wl-purpose .lead {
+  font-size: 18px;
+  margin-top: 0;
+}
+.wl-use-list {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+}
+.wl-use-list li {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wl-use-list strong {
+  font-size: 15px;
+}
+.wl-use-list span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.wl-privacy {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+.wl-privacy-icon {
+  background: var(--soft);
+  color: var(--accent);
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  font-size: 30px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.wl-privacy h2 {
+  margin: 10px 0;
+  font-size: 30px;
+}
+.wl-privacy p {
+  max-width: 700px;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+.wl-faq {
+  padding-bottom: 65px;
+}
+.wl-faq h2 {
+  margin-bottom: 26px;
+}
+.wl-faq details {
+  border-top: 1px solid var(--line);
+  padding: 20px 0;
+}
+.wl-faq details:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.wl-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+}
+.wl-faq details p {
+  max-width: 850px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.wl-final {
+  text-align: center;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 55px 24px;
+  margin-bottom: 70px;
+}
+.wl-final .button {
+  margin: 14px 0;
+}
+.wl-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 0 35px;
+  border-top: 1px solid var(--line);
+}
+.wl-home a:focus-visible,
+.wl-home summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+.wl-home section[id] {
+  scroll-margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .wl-hero {
+    gap: 32px;
+    padding-block: 65px;
+  }
+  .wl-hero h1 {
+    font-size: 54px;
+    letter-spacing: -2.5px;
+  }
+  .wl-preview-body {
+    padding: 23px;
+  }
+  .wl-steps {
+    gap: 23px;
+  }
+  .wl-purpose-grid {
+    gap: 35px;
+  }
+}
+@media (max-width: 700px) {
+  .wl-home .wl-container {
+    width: calc(100% - 36px);
+  }
+  .wl-hero {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-block: 45px;
+  }
+  .wl-hero h1 {
+    font-size: 52px;
+  }
+  .wl-hero .lead {
+    font-size: 17px;
+  }
+  .wl-hero-actions {
+    gap: 17px;
+  }
+  .wl-how-link {
+    display: none;
+  }
+  .wl-preview {
+    transform: none;
+  }
+  .wl-steps,
+  .wl-purpose-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .wl-steps p {
+    min-height: 0;
+  }
+  .wl-section {
+    padding-block: 50px;
+  }
+  .wl-purpose {
+    padding-block: 45px;
+  }
+  .wl-strip {
+    font-size: 14px;
+  }
+  .wl-strip span {
+    display: block;
+  }
+  .wl-privacy {
+    gap: 17px;
+  }
+  .wl-privacy-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 25px;
+  }
+  .wl-privacy h2 {
+    font-size: 25px;
+  }
+  .wl-final {
+    padding: 40px 20px;
+    margin-bottom: 45px;
+  }
+  .wl-footer {
+    flex-wrap: wrap;
+  }
+  .wl-footer .muted {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .wl-nav {
+    gap: 15px;
+  }
+  .wl-nav .row {
+    gap: 10px;
+  }
+  .wl-nav .button {
+    padding: 8px 12px;
+  }
+}
