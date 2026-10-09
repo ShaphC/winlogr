@@ -3,8 +3,10 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import { signout } from "@/app/actions";
 import { ThemeSelect } from "@/components/theme";
-import { WinModalProvider, AddWinButton } from "@/components/add-win-modal";
+import { WinModalProvider } from "@/components/add-win-modal";
+
 export const dynamic = "force-dynamic";
+
 export default async function Private({
   children,
 }: {
@@ -16,6 +18,7 @@ export default async function Private({
     error,
   } = await db.auth.getUser();
   if (error || !user) redirect("/login");
+
   return (
     <WinModalProvider userId={user.id}>
       <header className="nav">
@@ -28,7 +31,6 @@ export default async function Private({
           <Link href="/app/reflect">Reflect</Link>
           <Link href="/settings">Settings</Link>
           <ThemeSelect />
-          <AddWinButton />
           <form action={signout}>
             <button className="text-button">Sign out</button>
           </form>

@@ -5,7 +5,8 @@
 }
 .paper-workspace {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 460px) minmax(0, 440px);
+  justify-content: center;
   gap: 40px;
   align-items: start;
 }
@@ -20,13 +21,14 @@
 .paper-sidebar {
   grid-column: 2;
   grid-row: 1;
-  justify-self: center;
+  display: block;
+  align-self: start;
   min-width: 0;
   width: 100%;
-  max-width: 360px;
+  max-width: 440px;
 }
 
-/* Introduction and controls */
+/* Introduction and quick actions */
 .paper-intro h1 {
   font-size: 35px;
   line-height: 1.16;
@@ -37,86 +39,100 @@
   line-height: 1.8;
   max-width: 300px;
 }
+.paper-sidebar .muted {
+  font-size: 12px;
+  line-height: 1.8;
+}
 .paper-quick-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 17px;
   align-items: center;
-  margin: 24px 0 30px;
+  margin: 18px 0 12px;
   font-size: 13px;
-}
-.paper-settings,
-.paper-evidence,
-.paper-manage {
-  padding-block: 18px;
-  border-top: 1px solid var(--line);
-}
-.paper-settings > summary,
-.paper-evidence > summary,
-.paper-manage > summary {
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--ink);
-}
-.paper-settings form {
-  margin-top: 20px;
-  gap: 15px;
-}
-.paper-date-fields {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-.paper-sidebar input,
-.paper-sidebar select {
-  width: 100%;
-  min-width: 0;
-  font-size: 13px;
-}
-.paper-sidebar .muted {
-  font-size: 12px;
-  line-height: 1.8;
-}
-.paper-version-label {
-  margin: 22px 0 16px;
-  font-size: 12px;
-}
-.paper-document-actions {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-.paper-document-actions button {
-  padding: 10px 8px;
-  font-size: 12px;
-}
-.paper-evidence h3 {
-  font-size: 12px;
-  margin: 18px 0 8px;
-  line-height: 1.6;
 }
 .paper-review-note {
   font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
-/* Profile editor and onboarding */
-.paper-sidebar .profile-editor {
-  margin: 0;
-  padding: 18px 0;
-  border-top: 1px solid var(--line);
+/* Action tiles */
+.profile-action-list {
+  --tile-size: 135px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, var(--tile-size)));
+  gap: 10px;
+  width: 100%;
+  margin-top: 0;
 }
-.paper-sidebar .profile-editor > summary {
-  font-size: 13px;
+.profile-action {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 0;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
   color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+.profile-action > span:first-child {
+  min-width: 0;
+}
+.profile-action strong {
+  display: block;
+  font-size: 12px;
   font-weight: 600;
+  line-height: 1.35;
 }
-.paper-sidebar .profile-editor form {
-  padding: 14px;
+.profile-action small {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--muted);
 }
+.profile-action > span:last-child {
+  display: none;
+}
+.profile-action::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+  border-top: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+  border-top-right-radius: 5px;
+  pointer-events: none;
+}
+.profile-action:hover:not(:disabled) {
+  background: var(--soft);
+  border-color: var(--accent);
+  opacity: 1;
+}
+.profile-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.profile-action:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Optional onboarding */
 .paper-sidebar .starter-card {
   padding: 18px;
   border-radius: 14px;
@@ -132,13 +148,19 @@
 .paper-sidebar .starter-card .timeline-heading {
   margin-bottom: 12px;
 }
+.paper-sidebar input,
+.paper-sidebar select {
+  width: 100%;
+  min-width: 0;
+  font-size: 13px;
+}
 
 /* Paper contents */
 .paper-stage-label {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
   align-items: center;
+  gap: 15px;
   margin: 0 4px 14px;
   color: var(--muted);
   font-size: 11px;
@@ -419,6 +441,125 @@
   font-size: 16px;
 }
 
+/* Profile modals */
+.profile-modal {
+  box-sizing: border-box;
+  width: min(660px, calc(100% - 32px));
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  color: var(--ink);
+  overflow: auto;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 18%);
+}
+.profile-modal::backdrop {
+  background: rgb(10 14 25 / 60%);
+  backdrop-filter: blur(5px);
+}
+.profile-modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 26px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.profile-modal-header h2 {
+  margin: 0;
+  font-size: 21px;
+  letter-spacing: -0.5px;
+}
+.profile-modal-header button {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+.profile-modal-body {
+  padding: 26px;
+}
+.profile-modal .muted {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.profile-modal input,
+.profile-modal select,
+.profile-modal textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+.profile-modal textarea {
+  resize: vertical;
+}
+.paper-date-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.profile-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.profile-outcome-fields {
+  min-width: 0;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.profile-outcome-fields legend {
+  padding-inline: 7px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.profile-source-day h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+.profile-source-note {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+.profile-source-note p {
+  margin: 0 0 8px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.profile-source-note small {
+  color: var(--muted);
+  line-height: 1.6;
+}
+.profile-version-info {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.profile-version-info strong {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.profile-version-info p,
+.profile-version-info small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.profile-delete-section {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.profile-delete-section h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
 /* Short desktop screens */
 @media (min-width: 761px) and (max-height: 800px) {
   .paper-stage {
@@ -432,7 +573,11 @@
 }
 
 /* Narrow desktop screens */
-@media (min-width: 761px) and (max-width: 1000px) {
+@media (min-width: 901px) and (max-width: 1100px) {
+  .paper-workspace {
+    grid-template-columns: minmax(0, 375px) minmax(0, 400px);
+    gap: 28px;
+  }
   .paper-stage {
     max-width: 375px;
   }
@@ -443,7 +588,7 @@
   }
 }
 
-/* Single-column layout */
+/* Stacked tablet layout */
 @media (max-width: 900px) {
   .paper-workspace {
     grid-template-columns: minmax(0, 1fr);
@@ -452,10 +597,21 @@
   .paper-sidebar {
     grid-column: 1;
     grid-row: 1;
+    justify-self: center;
   }
   .paper-stage {
     grid-column: 1;
     grid-row: 2;
+  }
+}
+@media (min-width: 761px) and (max-width: 900px) {
+  .paper-stage {
+    max-width: 375px;
+  }
+  .paper-preview {
+    --preview-scale: 0.5;
+    width: 360px;
+    height: 480px;
   }
 }
 
@@ -472,9 +628,6 @@
   }
   .paper-intro p {
     max-width: none;
-  }
-  .paper-quick-actions {
-    margin: 18px 0;
   }
   .paper-stage {
     max-width: 460px;
@@ -508,6 +661,18 @@
   .paper-reader .paper-outcome p {
     font-size: 15px;
   }
+  .profile-modal {
+    max-height: calc(100dvh - 24px);
+  }
+  .profile-modal-header {
+    padding: 18px;
+  }
+  .profile-modal-header h2 {
+    font-size: 18px;
+  }
+  .profile-modal-body {
+    padding: 18px;
+  }
 }
 
 /* Small phones */
@@ -520,4 +685,15 @@
   .paper-date-fields {
     grid-template-columns: 1fr;
   }
+}
+
+.profile-modal .wins-timeline {
+  margin-top: 24px;
+}
+
+.supporting-win-context {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
 }
