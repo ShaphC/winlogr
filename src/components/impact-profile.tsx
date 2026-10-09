@@ -1,5 +1,11 @@
 "use client";
-import { useActionState, useState, useEffect } from "react";
+import {
+  useActionState,
+  useState,
+  useEffect,
+  useRef,
+  type ReactNode,
+} from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -11,6 +17,7 @@ import type { Profile } from "@/lib/impact-schema";
 import type { WinRecord } from "@/lib/wins";
 import { formatWinDate } from "@/lib/win-date";
 import { AddWinButton } from "@/components/add-win-modal";
+import "@/app/paper.css";
 function ranges(kind: string) {
   const now = new Date();
   const end = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
@@ -142,16 +149,55 @@ function RemoveProfile({ id }: { id: string }) {
     </form>
   );
 }
+function Paper({ profile }: { profile: Profile }) {
+  return (
+    <article className="impact-paper" aria-label="Your accomplishment profile">
+      <header className="paper-header">
+        <span className="paper-period">
+          {profile.period_start} — {profile.period_end}
+        </span>
+        {profile.display_name && (
+          <h2 className="paper-name">{profile.display_name}</h2>
+        )}
+        {profile.role_label && (
+          <p className="paper-role">{profile.role_label}</p>
+        )}
+        <h2 className="paper-headline">{profile.content.headline}</h2>
+      </header>
+      <section className="paper-summary">
+        <h3>Professional summary</h3>
+        <p>{profile.content.summary}</p>
+      </section>
+      <section className="paper-outcomes">
+        <h3>Key outcomes & contributions</h3>
+        {profile.content.outcomes.map((outcome, index) => (
+          <div className="paper-outcome" key={index}>
+            <span className="paper-number" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h4>{outcome.title}</h4>
+              <p>{outcome.description}</p>
+            </div>
+          </div>
+        ))}
+      </section>
+    </article>
+  );
+}
 export function ImpactProfile({
   profiles,
   wins,
   allowance,
+  starter,
 }: {
   profiles: Profile[];
   wins: WinRecord[];
   allowance: number;
+  starter?: ReactNode;
 }) {
   const router = useRouter();
+  const reader = useRef<HTMLDialogElement>(null);
   const [state, action, pending] = useActionState(generateImpact, {});
   const [selected, setSelected] = useState(profiles[0]?.id || "");
   const [kind, setKind] = useState("month");
@@ -164,8 +210,7 @@ export function ImpactProfile({
       router.refresh();
     }
   }, [state.profile, router]);
-  const list = profiles;
-  const profile = list.find((item) => item.id === selected) || list[0];
+  const profile = profiles.find((item) => item.id === selected) || profiles[0];
   async function copy() {
     if (!profile) return;
     try {
@@ -186,181 +231,239 @@ export function ImpactProfile({
       );
       setCopyStatus("Profile copied.");
     } catch {
-      setCopyStatus(
-        "Copy is unavailable. You can select the document text and copy it manually.",
-      );
+      setCopyStatus("Select the document text to copy it manually.");
     }
   }
+  function expand() {
+    reader.current?.showModal();
+  }
   return (
-    <>
-      <section className="impact-toolbar card">
-        <form action={action} className="impact-generate-form">
-          <label>
-            Period
-            <select
-              value={kind}
-              onChange={(event) => {
-                setKind(event.target.value);
-                if (event.target.value !== "custom") {
-                  setPeriod(ranges(event.target.value));
-                }
-              }}
-            >
-              <option value="month">This month</option>
-              <option value="quarter">This quarter</option>
-              <option value="year">This year</option>
-              <option value="custom">Custom</option>
-            </select>
-          </label>
-          <label>
-            From
-            <input
-              type="date"
-              name="start"
-              value={period.start}
-              onChange={(event) => {
-                setKind("custom");
-                setPeriod({ ...period, start: event.target.value });
-              }}
-              required
-            />
-          </label>
-          <label>
-            To
-            <input
-              type="date"
-              name="end"
-              value={period.end}
-              onChange={(event) => {
-                setKind("custom");
-                setPeriod({ ...period, end: event.target.value });
-              }}
-              required
-            />
-          </label>
-          <button disabled={pending || !wins.length || allowance <= 0}>
-            {pending ? "Building your profile…" : "Generate my profile"}
-          </button>
-        </form>
-        <p className="muted">
-          {allowance} beta {allowance === 1 ? "generation" : "generations"}{" "}
-          remaining. Only generate when you want an update. Selected wins are
-          sent to OpenAI.
-        </p>
+    <div className="paper-workspace">
+      <aside className="paper-sidebar" aria-label="Profile controls">
+        <div className="paper-intro">
+          <span className="eyebrow">YOUR IMPACT</span>
+          <h1>
+            Your work.
+            <br />
+            Worth seeing.
+          </h1>
+          <p className="muted">
+            A clear picture of what you bring, built from the work you’ve done.
+          </p>
+        </div>
+        <div className="paper-quick-actions">
+          <AddWinButton />
+          <Link href="/app/records">View timeline →</Link>
+        </div>
+        {starter}
+        <details className="paper-settings" open={!profile}>
+          <summary>
+            {profile ? "Create an updated profile" : "Create your profile"}
+          </summary>
+          <form action={action} className="stack">
+            <label>
+              Period
+              <select
+                value={kind}
+                onChange={(event) => {
+                  setKind(event.target.value);
+                  if (event.target.value !== "custom") {
+                    setPeriod(ranges(event.target.value));
+                  }
+                }}
+              >
+                <option value="month">This month</option>
+                <option value="quarter">This quarter</option>
+                <option value="year">This year</option>
+                <option value="custom">Custom</option>
+              </select>
+            </label>
+            <div className="paper-date-fields">
+              <label>
+                From
+                <input
+                  type="date"
+                  name="start"
+                  value={period.start}
+                  onChange={(event) => {
+                    setKind("custom");
+                    setPeriod({ ...period, start: event.target.value });
+                  }}
+                  required
+                />
+              </label>
+              <label>
+                To
+                <input
+                  type="date"
+                  name="end"
+                  value={period.end}
+                  onChange={(event) => {
+                    setKind("custom");
+                    setPeriod({ ...period, end: event.target.value });
+                  }}
+                  required
+                />
+              </label>
+            </div>
+            <button disabled={pending || !wins.length || allowance <= 0}>
+              {pending ? "Building your profile…" : "Generate my profile"}
+            </button>
+            <p className="muted">
+              {allowance} beta {allowance === 1 ? "generation" : "generations"}{" "}
+              remaining. Selected wins are sent to OpenAI.
+            </p>
+          </form>
+        </details>
+        {pending && (
+          <p role="status" className="muted">
+            Taking a moment to put your contributions into perspective…
+          </p>
+        )}
         {state.error && (
           <p className="error" role="alert">
             {state.error}
           </p>
         )}
-      </section>
-      {list.length > 0 && (
-        <div className="profile-controls">
-          <label>
-            Saved versions
-            <select
-              value={profile?.id || ""}
-              onChange={(event) => setSelected(event.target.value)}
-            >
-              {list.map((item, index) => (
-                <option key={item.id} value={item.id}>
-                  {index === 0 ? "Latest · " : ""}
-                  {item.period_start} → {item.period_end} ·{" "}
-                  {new Date(item.created_at).toLocaleDateString()}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button type="button" className="secondary-button" onClick={copy}>
-            Copy profile
-          </button>
-        </div>
-      )}
-      <p className="muted" role="status">
-        {copyStatus}
-      </p>
-      {profile ? (
-        <>
-          <article
-            className="impact-document"
-            aria-label="Your accomplishment profile"
-          >
-            <header className="impact-document-header">
-              <span className="eyebrow">
-                YOUR IMPACT · {profile.period_start} — {profile.period_end}
-              </span>
-              {profile.display_name && (
-                <h2 className="profile-name">{profile.display_name}</h2>
-              )}
-              {profile.role_label && (
-                <p className="profile-role">{profile.role_label}</p>
-              )}
-              <h2 className="profile-headline">{profile.content.headline}</h2>
-            </header>
-            <section className="profile-summary">
-              <h3>Professional summary</h3>
-              <p>{profile.content.summary}</p>
+        {profile && (
+          <>
+            <label className="paper-version-label">
+              Saved profiles
+              <select
+                value={profile.id}
+                onChange={(event) => setSelected(event.target.value)}
+              >
+                {profiles.map((item, index) => (
+                  <option key={item.id} value={item.id}>
+                    {index === 0 ? "Latest · " : ""}
+                    {item.period_start} → {item.period_end}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="paper-document-actions">
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={expand}
+              >
+                Expand document ↗
+              </button>
+              <button type="button" className="secondary-button" onClick={copy}>
+                Copy profile
+              </button>
+            </div>
+            <p className="muted" role="status">
+              {copyStatus}
+            </p>
+            <details className="paper-evidence">
+              <summary>View supporting wins</summary>
+              <p className="muted">
+                These are the current source notes. They may have changed since
+                generation.
+              </p>
+              <h3>Summary</h3>
               <Sources ids={profile.content.summary_source_ids} wins={wins} />
-            </section>
-            <section className="profile-outcomes">
-              <h3>Key outcomes & contributions</h3>
               {profile.content.outcomes.map((outcome, index) => (
-                <div className="profile-outcome" key={index}>
-                  <span className="outcome-number" aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h4>{outcome.title}</h4>
-                    <p>{outcome.description}</p>
-                    <Sources ids={outcome.source_ids} wins={wins} />
-                  </div>
+                <div key={index}>
+                  <h3>{outcome.title}</h3>
+                  <Sources ids={outcome.source_ids} wins={wins} />
                 </div>
               ))}
-            </section>
-            <footer className="profile-footnote">
-              A saved reflection based on your entries. Review the wording
-              before using it elsewhere. Source notes may have changed since
-              generation.
-            </footer>
-          </article>
-          <ProfileEditor
-            key={profile.id + profile.updated_at}
-            profile={profile}
-          />
-          <RemoveProfile key={profile.id} id={profile.id} />
-        </>
-      ) : (
-        <section className="impact-empty card">
-          <span className="eyebrow">YOUR WORK HAS A STORY</span>
-          <h2>
-            {wins.length
-              ? "Your accomplishments are ready to become a profile."
-              : "Start with something you got done."}
-          </h2>
-          <p className="lead">
-            {wins.length
-              ? "Choose a period above to see your contributions in a clear summary, backed by your own wins."
-              : "One real contribution is enough to begin. Add a quick win or use the optional starter prompts."}
-          </p>
-          <div className="row">
-            <AddWinButton label="Add my first win" />
-            <Link href="/app/records">Open timeline →</Link>
-          </div>
-          <div className="impact-example">
-            <span className="eyebrow">
-              ILLUSTRATIVE EXAMPLE · NOT YOUR PROFILE
-            </span>
-            <h3>Practical problem solving and support for your team</h3>
-            <p>
-              During this period, you resolved a recurring access issue and
-              helped a teammate complete a deployment.
+            </details>
+            <ProfileEditor
+              key={profile.id + profile.updated_at}
+              profile={profile}
+            />
+            <details className="paper-manage">
+              <summary>Manage this profile</summary>
+              <p className="muted">
+                Deleting a profile keeps your original wins.
+              </p>
+              <RemoveProfile key={profile.id} id={profile.id} />
+            </details>
+            <p className="paper-review-note">
+              Your profile is a saved reflection. Review the wording before
+              sharing it.
             </p>
-            <strong>Restored account access</strong>
-            <p>
-              Identified and corrected a refresh-token issue affecting login.
+          </>
+        )}
+      </aside>
+      <section className="paper-stage" aria-label="Document preview">
+        {profile ? (
+          <>
+            <div className="paper-stage-label">
+              <span>Your accomplishment profile</span>
+              <button type="button" className="text-button" onClick={expand}>
+                Expand ↗
+              </button>
+            </div>
+            <div className="paper-preview">
+              <div className="paper-preview-sheet">
+                <Paper profile={profile} />
+              </div>
+              <button
+                type="button"
+                className="paper-preview-open"
+                onClick={expand}
+                aria-label="Expand your accomplishment profile"
+              >
+                <span>Click to read ↗</span>
+              </button>
+            </div>
+            <p className="paper-stage-hint">
+              Click the paper to open the full document.
             </p>
+          </>
+        ) : (
+          <div className="impact-paper paper-placeholder">
+            <span className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
+            <h2>
+              {wins.length
+                ? "You’ve already done the work."
+                : "Start with one real win."}
+            </h2>
+            <p>
+              {wins.length
+                ? "Generate your profile to see your contributions brought together in one place."
+                : "Add something you fixed, finished, learned, or helped with. Your profile will grow from your own experience."}
+            </p>
+            <div className="paper-example">
+              <span className="eyebrow">ILLUSTRATIVE EXAMPLE</span>
+              <h3>Practical problem solving and client support</h3>
+              <p>
+                Your work shows hands-on troubleshooting and support for clients
+                navigating technical setup.
+              </p>
+              <h4>Restored internet connectivity</h4>
+              <p>Resolved a client’s connectivity issue.</p>
+            </div>
           </div>
-        </section>
+        )}
+      </section>
+      {profile && (
+        <dialog
+          ref={reader}
+          className="paper-reader"
+          aria-label="Expanded accomplishment profile"
+        >
+          <div className="paper-reader-toolbar">
+            <span>YOUR IMPACT</span>
+            <button type="button" className="secondary-button" onClick={copy}>
+              Copy
+            </button>
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => reader.current?.close()}
+              autoFocus
+            >
+              Close ✕
+            </button>
+          </div>
+          <Paper profile={profile} />
+        </dialog>
       )}
-    </>
+    </div>
   );
 }

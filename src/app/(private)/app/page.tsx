@@ -1,10 +1,8 @@
-import Link from "next/link";
 import { createClient } from "@/lib/supabase";
 import { getWins } from "@/lib/wins";
 import { impactSchema, type Profile } from "@/lib/impact-schema";
 import { ImpactProfile } from "@/components/impact-profile";
 import { StarterProfile } from "@/components/starter-profile";
-import { AddWinButton } from "@/components/add-win-modal";
 export default async function Page() {
   const wins = await getWins();
   const db = await createClient();
@@ -44,35 +42,25 @@ export default async function Page() {
   const profiles = (saved.data ?? []).filter(
     (profile) => impactSchema.safeParse(profile.content).success,
   ) as Profile[];
-  const allowance = Math.max(
-    0,
-    (limits.data?.generation_limit ?? 5) - (usage.count ?? 0),
-  );
   return (
     <div className="impact-page">
-      <div className="impact-page-heading">
-        <div>
-          <span className="eyebrow">YOUR WORK, IN PERSPECTIVE</span>
-          <h1>Look at what you bring.</h1>
-          <p className="muted">
-            A clear picture of your contributions, grounded in what you’ve done.
-          </p>
-        </div>
-        <div className="row">
-          <Link className="secondary-button" href="/app/records">
-            Timeline
-          </Link>
-          <AddWinButton />
-        </div>
-      </div>
-      {!profiles.length && (
-        <StarterProfile
-          name={settings.data?.display_name || ""}
-          role={settings.data?.role_label || ""}
-          initialOpen={!settings.data?.onboarding_dismissed && !wins.length}
-        />
-      )}
-      <ImpactProfile profiles={profiles} wins={wins} allowance={allowance} />
+      <ImpactProfile
+        profiles={profiles}
+        wins={wins}
+        allowance={Math.max(
+          0,
+          (limits.data?.generation_limit ?? 5) - (usage.count ?? 0),
+        )}
+        starter={
+          !profiles.length ? (
+            <StarterProfile
+              name={settings.data?.display_name || ""}
+              role={settings.data?.role_label || ""}
+              initialOpen={!settings.data?.onboarding_dismissed && !wins.length}
+            />
+          ) : undefined
+        }
+      />
     </div>
   );
 }
