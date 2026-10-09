@@ -748,3 +748,31 @@ html:has(.wl-home) {
   min-width: 0;
   max-width: 700px;
 }
+
+.wl-nav-logout {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.wl-home .wl-nav-logout > button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.wl-home .wl-nav-logout > button:hover:not(:disabled) {
+  background: transparent;
+  color: var(--accent);
+  opacity: 1;
+}
+
+.wl-home .wl-nav-logout > button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}

@@ -1,25 +1,55 @@
 import "./landing.css";
+
 import Link from "next/link";
 import { ThemeSelect } from "@/components/theme";
 import { MarketingPreview } from "@/components/marketing-preview";
+import { createClient } from "@/lib/supabase";
+import { signout } from "@/app/actions";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div className="wl-home">
       <header className="nav wl-nav">
         <Link href="/" className="brand" aria-label="WinLog home">
           WinLog<span>●</span>
         </Link>
+
         <nav className="row" aria-label="Main navigation">
           <a className="wl-how-link" href="#how-it-works">
             How it works
           </a>
+
           <a href="#pricing">Pricing</a>
+
           <ThemeSelect />
-          <Link href="/login">Log in</Link>
-          <Link className="button" href="/signup">
-            Get started
-          </Link>
+
+          {user ? (
+            <>
+              <form action={signout} className="wl-nav-logout">
+                <button type="submit" className="text-button">
+                  Log out
+                </button>
+              </form>
+
+              <Link className="button" href="/app">
+                Continue
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/login">Log in</Link>
+
+              <Link className="button" href="/signup">
+                Get started
+              </Link>
+            </>
+          )}
         </nav>
       </header>
 
@@ -355,7 +385,9 @@ export default function Home() {
         <span className="muted">
           Remember your accomplishments. Recognize your capabilities.
         </span>
-        <Link href="/login">Log in</Link>
+        <Link href={user ? "/app" : "/login"}>
+          {user ? "Continue" : "Log in"}
+        </Link>
       </footer>
     </div>
   );
