@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import {
   login,
   signup,
@@ -9,6 +9,7 @@ import {
   saveSettings,
 } from "@/app/actions";
 import type { ActionState } from "@/lib/validation";
+
 function Status({ state }: { state: ActionState }) {
   return (
     <p role="status" className={state.error ? "error" : "success"}>
@@ -16,31 +17,104 @@ function Status({ state }: { state: ActionState }) {
     </p>
   );
 }
+
 function today() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
+
 export function AuthForm({ register = false }: { register?: boolean }) {
   const [state, action, pending] = useActionState(
     register ? signup : login,
     {},
   );
+  const [email, setEmail] = useState("");
+  const [remember, setRemember] = useState(false);
+  const storageKey = "winlog:remembered-email";
+
+  useEffect(() => {
+    if (register) return;
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        setEmail(saved);
+        setRemember(true);
+      }
+    } catch {}
+  }, [register]);
+
+  function rememberEmail(checked: boolean) {
+    setRemember(checked);
+    try {
+      if (checked && email.trim()) {
+        localStorage.setItem(storageKey, email.trim());
+      } else {
+        localStorage.removeItem(storageKey);
+      }
+    } catch {}
+  }
+
   return (
-    <form action={action} className="stack">
-      <label>
-        Email
-        <input name="email" type="email" autoComplete="email" required />
-      </label>
-      <label>
-        Password
-        <input
-          name="password"
-          type="password"
-          minLength={register ? 8 : 1}
-          autoComplete={register ? "new-password" : "current-password"}
-          required
-        />
-      </label>
+    <form
+      action={action}
+      className="stack auth-form"
+      onSubmit={(event) => {
+        if (register) return;
+        const submittedEmail = String(
+          new FormData(event.currentTarget).get("email") ?? "",
+        ).trim();
+        try {
+          if (remember && submittedEmail) {
+            localStorage.setItem(storageKey, submittedEmail);
+          } else {
+            localStorage.removeItem(storageKey);
+          }
+        } catch {}
+      }}
+    >
+      <input
+        name="email"
+        type="email"
+        aria-label="Email"
+        placeholder="Email"
+        autoComplete="email"
+        autoCapitalize="none"
+        spellCheck={false}
+        value={email}
+        onChange={(event) => {
+          const value = event.target.value;
+          setEmail(value);
+          if (!register && remember) {
+            try {
+              if (value.trim()) {
+                localStorage.setItem(storageKey, value.trim());
+              } else {
+                localStorage.removeItem(storageKey);
+              }
+            } catch {}
+          }
+        }}
+        required
+      />
+      <input
+        name="password"
+        type="password"
+        aria-label="Password"
+        placeholder={register ? "Password (at least 8 characters)" : "Password"}
+        minLength={register ? 8 : 1}
+        autoComplete={register ? "new-password" : "current-password"}
+        required
+      />
+      {!register && (
+        <label className="auth-remember">
+          <input
+            type="checkbox"
+            checked={remember}
+            onChange={(event) => rememberEmail(event.target.checked)}
+          />
+          <span>Remember me</span>
+        </label>
+      )}
       <button disabled={pending}>
         {pending ? "Please wait…" : register ? "Create account" : "Log in"}
       </button>
@@ -48,6 +122,7 @@ export function AuthForm({ register = false }: { register?: boolean }) {
     </form>
   );
 }
+
 export function WinForm({
   win,
 }: {
@@ -58,6 +133,7 @@ export function WinForm({
   useEffect(() => {
     if (state.message && !win) ref.current?.reset();
   }, [state, win]);
+
   return (
     <form ref={ref} action={action} className="stack">
       <input type="hidden" name="id" value={win?.id || ""} />
@@ -90,13 +166,16 @@ export function WinForm({
     </form>
   );
 }
+
 export function DeleteForm({ id }: { id: string }) {
   const [state, action, pending] = useActionState(deleteWin, {});
   return (
     <form
       action={action}
-      onSubmit={(e) => {
-        if (!window.confirm("Delete this win permanently?")) e.preventDefault();
+      onSubmit={(event) => {
+        if (!window.confirm("Delete this win permanently?")) {
+          event.preventDefault();
+        }
       }}
     >
       <input type="hidden" name="id" value={id} />
@@ -107,12 +186,14 @@ export function DeleteForm({ id }: { id: string }) {
     </form>
   );
 }
+
 export function ReflectionForm() {
   const [state, action, pending] = useActionState(saveReflection, {});
   const ref = useRef<HTMLFormElement>(null);
   useEffect(() => {
     if (state.message) ref.current?.reset();
   }, [state]);
+
   return (
     <form ref={ref} action={action} className="stack">
       <label>
@@ -142,6 +223,7 @@ export function ReflectionForm() {
     </form>
   );
 }
+
 export function SettingsForm({
   settings,
 }: {
@@ -165,8 +247,8 @@ export function SettingsForm({
             "Thursday",
             "Friday",
             "Saturday",
-          ].map((day, i) => (
-            <option key={day} value={i}>
+          ].map((day, index) => (
+            <option key={day} value={index}>
               {day}
             </option>
           ))}

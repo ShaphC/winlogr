@@ -1,0 +1,135 @@
+.wl-auth-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.wl-auth-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 48px 24px 64px;
+}
+
+.wl-auth-main .wl-auth-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 440px;
+  margin: 0;
+  padding: 36px;
+  border-radius: 20px;
+}
+
+.wl-auth-card h1 {
+  margin: 14px 0 10px;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.wl-auth-card > .muted {
+  margin-bottom: 26px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.auth-form > input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px 15px;
+  font-size: 14px;
+}
+
+.auth-form > input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.auth-form .auth-remember {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.auth-form .auth-remember input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.auth-form > button {
+  width: 100%;
+}
+
+.auth-form > p:empty {
+  display: none;
+}
+
+.auth-switch {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.auth-switch a {
+  color: var(--accent);
+}
+
+.wl-auth-shell > .wl-nav {
+  box-sizing: border-box;
+  width: min(1184px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.wl-auth-shell .wl-nav > nav.row {
+  gap: 24px;
+}
+
+@media (max-width: 700px) {
+  .wl-auth-main {
+    padding: 32px 18px 48px;
+  }
+
+  .wl-auth-main .wl-auth-card {
+    padding: 26px;
+  }
+
+  .wl-auth-shell .wl-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .wl-auth-shell .wl-nav > nav.row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+.auth-form .auth-remember {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: px;
+  margin-left: 10;
+  font-size: 13px;
+}
+
+.auth-form .auth-remember input {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.auth-form > p,
+.wl-auth-card .auth-switch {
+  text-align: left;
+}
