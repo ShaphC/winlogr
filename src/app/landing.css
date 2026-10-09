@@ -370,3 +370,277 @@
     padding: 8px 12px;
   }
 }
+
+/* Layered timeline and Impact examples */
+.wl-preview-demo {
+  min-width: 0;
+  padding-right: 22px;
+}
+
+.wl-preview-stack {
+  display: grid;
+  isolation: isolate;
+  padding-bottom: 20px;
+}
+
+.wl-stack-card {
+  grid-area: 1 / 1;
+  min-width: 0;
+  transform-origin: center;
+  transition:
+    transform 650ms ease,
+    box-shadow 650ms ease;
+}
+
+.wl-stack-card.is-front {
+  z-index: 2;
+  transform: translate(0, 0) rotate(-1deg);
+  box-shadow: 0 22px 65px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.wl-stack-card.is-back {
+  z-index: 1;
+  transform: translate(20px, 16px) rotate(3deg);
+  pointer-events: none;
+  user-select: none;
+  box-shadow: 0 10px 35px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.wl-impact-example h2 {
+  font-size: 23px;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+  margin-bottom: 20px;
+}
+
+.wl-impact-example h3 {
+  margin: 0 0 10px;
+  font-size: 9px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wl-impact-summary {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.wl-impact-summary p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.wl-impact-outcomes {
+  padding-top: 20px;
+}
+
+.wl-impact-outcomes > div {
+  display: flex;
+  gap: 13px;
+  padding: 11px 0;
+}
+
+.wl-impact-outcomes > div + div {
+  border-top: 1px solid var(--line);
+}
+
+.wl-impact-outcomes > div > span {
+  padding-top: 3px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.wl-impact-outcomes p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.wl-impact-outcomes strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.wl-preview-switcher {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.wl-preview-switcher button {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.wl-preview-switcher button[aria-pressed="true"] {
+  background: var(--soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.wl-preview-switcher button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.wl-preview-switcher .wl-preview-pause {
+  background: transparent;
+  border-color: transparent;
+}
+
+@media (max-width: 700px) {
+  .wl-preview-demo {
+    padding-right: 16px;
+  }
+
+  .wl-stack-card.is-back {
+    transform: translate(14px, 12px) rotate(2deg);
+  }
+
+  .wl-impact-example h2 {
+    font-size: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-stack-card {
+    transition: none;
+  }
+}
+/* Align the introduction with the top of the cards */
+.wl-hero {
+  align-items: start;
+}
+
+.wl-hero-copy {
+  padding-top: 0;
+}
+
+/* Keep both cards visible while they rotate between positions */
+.wl-preview-stack {
+  perspective: none;
+}
+
+.wl-stack-card {
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  transform-origin: center;
+  transition:
+    transform 900ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 900ms ease;
+}
+
+.wl-stack-card.is-front {
+  z-index: 2;
+  transform: translate(0, 0) rotate(-2deg);
+}
+
+.wl-stack-card.is-back {
+  z-index: 1;
+  transform: translate(24px, 16px) rotate(5deg);
+}
+
+@media (max-width: 700px) {
+  .wl-stack-card.is-front {
+    transform: rotate(-1deg);
+  }
+
+  .wl-stack-card.is-back {
+    transform: translate(14px, 12px) rotate(4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-stack-card {
+    transition: none;
+  }
+}
+
+.wl-preview-demo {
+  padding-right: 24px;
+}
+
+.wl-preview-stack {
+  perspective: none;
+  padding-top: 20px;
+  padding-bottom: 0;
+}
+
+.wl-stack-card {
+  transform-origin: center;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  transition: none;
+}
+
+.wl-stack-card.is-front {
+  z-index: 2;
+  transform: translate(0, 0);
+  animation: wl-card-to-front 1100ms ease-in-out both;
+}
+
+.wl-stack-card.is-back {
+  z-index: 1;
+  transform: translate(24px, -20px);
+  animation: wl-card-to-back 1100ms ease-in-out both;
+}
+
+/* Back card swings left, then settles in front */
+@keyframes wl-card-to-front {
+  0% {
+    z-index: 1;
+    transform: translate(24px, -20px);
+  }
+  45% {
+    z-index: 1;
+    transform: translate(-5%, -10px);
+  }
+  50% {
+    z-index: 2;
+    transform: translate(-5%, -10px);
+  }
+  100% {
+    z-index: 2;
+    transform: translate(0, 0);
+  }
+}
+
+/* Front card swings right, then settles behind */
+@keyframes wl-card-to-back {
+  0% {
+    z-index: 2;
+    transform: translate(0, 0);
+  }
+  45% {
+    z-index: 2;
+    transform: translate(15%, -10px);
+  }
+  50% {
+    z-index: 1;
+    transform: translate(15%, -10px);
+  }
+  100% {
+    z-index: 1;
+    transform: translate(24px, -20px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-stack-card.is-front,
+  .wl-stack-card.is-back {
+    animation: none;
+  }
+}

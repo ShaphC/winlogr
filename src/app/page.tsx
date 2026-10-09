@@ -1,20 +1,8 @@
 import "./landing.css";
 import Link from "next/link";
 import { ThemeSelect } from "@/components/theme";
-const examples = [
-  {
-    label: "Fixed",
-    text: "Resolved a recurring login issue caused by refresh tokens not updating.",
-  },
-  {
-    label: "Helped",
-    text: "Walked a teammate through their first production deployment.",
-  },
-  {
-    label: "Improved",
-    text: "Simplified the steps for preparing the weekly customer report.",
-  },
-];
+import { MarketingPreview } from "@/components/marketing-preview";
+
 export default function Home() {
   return (
     <div className="wl-home">
@@ -33,6 +21,7 @@ export default function Home() {
           </Link>
         </nav>
       </header>
+
       <main id="main-content">
         <section className="wl-hero wl-container">
           <div className="wl-hero-copy">
@@ -59,41 +48,15 @@ export default function Home() {
               No credit card required. Just something worth remembering.
             </p>
           </div>
-          <div
-            className="wl-preview"
-            aria-label="Illustrative WinLog career record"
-          >
-            <div className="wl-preview-top">
-              <span className="brand">
-                WinLog<span>●</span>
-              </span>
-              <span className="wl-chip">Example record</span>
-            </div>
-            <div className="wl-preview-body">
-              <span className="eyebrow">A FEW MOMENTS FROM YOUR WEEK</span>
-              <h2>Small wins add up.</h2>
-              {examples.map((item, index) => (
-                <div className="wl-example" key={item.label}>
-                  <span className="wl-example-dot" aria-hidden="true" />
-                  <div>
-                    <span className="wl-example-meta">
-                      {["MONDAY", "WEDNESDAY", "FRIDAY"][index]} · {item.label}
-                    </span>
-                    <p>{item.text}</p>
-                  </div>
-                </div>
-              ))}
-              <div className="wl-preview-note">
-                <span aria-hidden="true">✓</span> A record you can come back to.
-              </div>
-            </div>
-          </div>
+          <MarketingPreview />
         </section>
+
         <section className="wl-strip">
           <div className="wl-container">
             For the work that gets done <span>— and then gets forgotten.</span>
           </div>
         </section>
+
         <section id="how-it-works" className="wl-container wl-section">
           <div className="wl-section-heading">
             <span className="eyebrow">A SIMPLE HABIT, A USEFUL RECORD</span>
@@ -148,6 +111,7 @@ export default function Home() {
             </article>
           </div>
         </section>
+
         <section className="wl-purpose">
           <div className="wl-container wl-purpose-grid">
             <div>
@@ -186,6 +150,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+
         <section className="wl-container wl-section wl-privacy">
           <span className="wl-privacy-icon" aria-hidden="true">
             ↳
@@ -200,6 +165,7 @@ export default function Home() {
             </p>
           </div>
         </section>
+
         <section className="wl-container wl-faq">
           <h2>A few things you might be wondering.</h2>
           <details>
@@ -227,6 +193,7 @@ export default function Home() {
             </p>
           </details>
         </section>
+
         <section className="wl-container wl-final">
           <span className="eyebrow">YOUR CAREER HAS RECEIPTS</span>
           <h2>
@@ -242,6 +209,7 @@ export default function Home() {
           </p>
         </section>
       </main>
+
       <footer className="wl-container wl-footer">
         <Link className="brand" href="/">
           WinLog<span>●</span>
