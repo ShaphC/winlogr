@@ -694,3 +694,57 @@ html:has(.wl-home) {
     scroll-behavior: auto;
   }
 }
+
+.wl-home .wl-faq {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.wl-faq > .wl-section-heading {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.wl-faq > .wl-section-heading h2 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -1.8px;
+  margin: 16px 0;
+}
+
+.wl-faq > .wl-section-heading .lead {
+  max-width: 560px;
+  margin-inline: auto;
+  font-size: 17px;
+}
+.wl-home .wl-nav > nav.row {
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .wl-home .wl-nav > nav.row {
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+/* Center the How it works heading */
+#how-it-works > .wl-section-heading {
+  text-align: center;
+}
+
+#how-it-works > .wl-section-heading .lead {
+  margin-inline: auto;
+}
+
+/* Center the privacy block, keeping the icon beside the text */
+.wl-privacy {
+  justify-content: center;
+}
+
+.wl-privacy > div {
+  min-width: 0;
+  max-width: 700px;
+}

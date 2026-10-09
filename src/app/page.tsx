@@ -220,7 +220,7 @@ export default function Home() {
                 <span className="wl-chip">Coming soon</span>
               </div>
               <p className="wl-price wl-price-pending">
-                Paid plan<span>Pricing to be announced</span>
+                Pro<span>Pricing to be announced</span>
               </p>
               <p className="wl-price-description">
                 For keeping your Impact up to date as your work grows.
@@ -242,7 +242,10 @@ export default function Home() {
         </section>
 
         <section className="wl-container wl-faq">
-          <h2>A few things you might be wondering.</h2>
+          <div className="wl-section-heading">
+            <h2>Commonly asked questions</h2>
+            <p className="lead">A few things you might be wondering.</p>
+          </div>
 
           <details>
             <summary>What counts as a win?</summary>
