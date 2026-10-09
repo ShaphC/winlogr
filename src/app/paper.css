@@ -1,13 +1,13 @@
 /* Workspace */
 .workspace:has(.paper-workspace) {
-  max-width: 1320px;
+  max-width: 1440px;
   margin-top: 34px;
 }
 .paper-workspace {
   display: grid;
-  grid-template-columns: minmax(0, 460px) minmax(0, 440px);
+  grid-template-columns: minmax(0, 510px) minmax(0, 460px);
   justify-content: center;
-  gap: 40px;
+  gap: 44px;
   align-items: start;
 }
 .paper-stage {
@@ -16,7 +16,7 @@
   justify-self: center;
   min-width: 0;
   width: 100%;
-  max-width: 460px;
+  max-width: 510px;
 }
 .paper-sidebar {
   grid-column: 2;
@@ -25,19 +25,20 @@
   align-self: start;
   min-width: 0;
   width: 100%;
-  max-width: 440px;
+  max-width: 460px;
 }
 
 /* Introduction and quick actions */
 .paper-intro h1 {
-  font-size: 35px;
+  font-size: 40px;
   line-height: 1.16;
   margin: 14px 0;
   letter-spacing: -1.3px;
 }
 .paper-intro p {
+  font-size: 16px;
   line-height: 1.8;
-  max-width: 300px;
+  max-width: 360px;
 }
 .paper-sidebar .muted {
   font-size: 12px;
@@ -46,24 +47,24 @@
 .paper-quick-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 17px;
+  gap: 20px;
   align-items: center;
-  margin: 18px 0 12px;
-  font-size: 13px;
+  margin: 22px 0 16px;
+  font-size: 14px;
 }
 .paper-review-note {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.8;
   color: var(--muted);
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 /* Action tiles */
 .profile-action-list {
-  --tile-size: 135px;
+  --tile-size: 150px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, var(--tile-size)));
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   margin-top: 0;
 }
@@ -76,7 +77,7 @@
   width: 100%;
   aspect-ratio: 1;
   min-height: 0;
-  padding: 10px;
+  padding: 12px;
   text-align: left;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -92,15 +93,15 @@
 }
 .profile-action strong {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.35;
 }
 .profile-action small {
   display: block;
-  margin-top: 5px;
-  font-size: 10px;
-  line-height: 1.4;
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.5;
   color: var(--muted);
 }
 .profile-action > span:last-child {
@@ -265,10 +266,10 @@
 
 /* Compact, clickable preview */
 .paper-preview {
-  --preview-scale: 0.62;
+  --preview-scale: 0.68;
   position: relative;
-  width: 446.4px;
-  height: 595.2px;
+  width: 489.6px;
+  height: 652.8px;
   margin-inline: auto;
   border-radius: 18px;
   box-shadow:
@@ -355,7 +356,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 595px;
+  min-height: 653px;
   padding: 32px;
 }
 .paper-placeholder > h2 {
@@ -560,31 +561,42 @@
   font-size: 15px;
 }
 
+/* Supporting wins */
+.profile-modal .wins-timeline {
+  margin-top: 24px;
+}
+.supporting-win-context {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
 /* Short desktop screens */
-@media (min-width: 761px) and (max-height: 800px) {
+@media (min-width: 1101px) and (max-height: 800px) {
   .paper-stage {
-    max-width: 390px;
+    max-width: 460px;
   }
   .paper-preview {
-    --preview-scale: 0.52;
-    width: 374.4px;
-    height: 499.2px;
+    --preview-scale: 0.62;
+    width: 446.4px;
+    height: 595.2px;
   }
 }
 
 /* Narrow desktop screens */
 @media (min-width: 901px) and (max-width: 1100px) {
   .paper-workspace {
-    grid-template-columns: minmax(0, 375px) minmax(0, 400px);
+    grid-template-columns: minmax(0, 420px) minmax(0, 360px);
     gap: 28px;
   }
   .paper-stage {
-    max-width: 375px;
+    max-width: 420px;
   }
   .paper-preview {
-    --preview-scale: 0.5;
-    width: 360px;
-    height: 480px;
+    --preview-scale: 0.56;
+    width: 403.2px;
+    height: 537.6px;
   }
 }
 
@@ -628,6 +640,26 @@
   }
   .paper-intro p {
     max-width: none;
+  }
+  .paper-quick-actions {
+    gap: 17px;
+    margin: 18px 0 12px;
+    font-size: 13px;
+  }
+  .profile-action-list {
+    --tile-size: 135px;
+    gap: 10px;
+  }
+  .profile-action {
+    padding: 10px;
+  }
+  .profile-action strong {
+    font-size: 12px;
+  }
+  .profile-action small {
+    margin-top: 5px;
+    font-size: 10px;
+    line-height: 1.4;
   }
   .paper-stage {
     max-width: 460px;
@@ -685,15 +717,4 @@
   .paper-date-fields {
     grid-template-columns: 1fr;
   }
-}
-
-.profile-modal .wins-timeline {
-  margin-top: 24px;
-}
-
-.supporting-win-context {
-  margin: 0;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.6;
 }
