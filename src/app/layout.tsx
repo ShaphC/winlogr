@@ -3,6 +3,7 @@ import { Themes } from "@/components/theme";
 import "./globals.css";
 import "./design-refresh.css";
 import "./wins.css";
+import "./impact.css";
 export const metadata: Metadata = {
   title: "WinLog — Your career has receipts",
   description: "A private place to remember what you accomplished.",

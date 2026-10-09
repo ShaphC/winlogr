@@ -220,10 +220,10 @@ export default function Home() {
           <details>
             <summary>Does WinLog generate career documents with AI?</summary>
             <p>
-              AI improvements and career document generation are being built
-              next. Today you can save, edit, and review wins, reflect on your
-              week, and set your reflection preferences. Automated reminder
-              emails are not active yet.
+              Yes. You can generate a private accomplishment profile with a
+              professional summary, key outcomes, and links to your source wins.
+              Generation is optional and limited during beta. Selected wins are
+              sent to OpenAI. Automated reminder emails are not active yet.
             </p>
           </details>
         </section>
