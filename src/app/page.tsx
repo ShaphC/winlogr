@@ -14,6 +14,7 @@ export default function Home() {
           <a className="wl-how-link" href="#how-it-works">
             How it works
           </a>
+          <a href="#pricing">Pricing</a>
           <ThemeSelect />
           <Link href="/login">Log in</Link>
           <Link className="button" href="/signup">
@@ -25,88 +26,92 @@ export default function Home() {
       <main id="main-content">
         <section className="wl-hero wl-container">
           <div className="wl-hero-copy">
-            <span className="eyebrow">YOUR WORK IS WORTH REMEMBERING</span>
+            <span className="eyebrow">YOUR WORK. WORTH SEEING.</span>
             <h1>
-              You did more
+              See what your
               <br />
-              than you <em>remember.</em>
+              work <em>adds up to.</em>
             </h1>
             <p className="lead">
-              The bug you fixed. The teammate you helped. The process you made
-              better. Keep your work wins in one private place, while they’re
-              still fresh.
+              You solve problems, help people, and get things done. Save those
+              moments in WinLog, then turn them into a clear picture of the
+              contributions you bring.
             </p>
             <div className="row wl-hero-actions">
               <Link className="button" href="/signup">
-                Start your WinLog <span aria-hidden="true">↗</span>
+                Start with a win <span aria-hidden="true">↗</span>
               </Link>
               <a href="#how-it-works">
                 See how it works <span aria-hidden="true">↓</span>
               </a>
             </div>
-            <p className="muted">
-              No credit card required. Just something worth remembering.
-            </p>
+            <p className="muted">Free during beta. No credit card required.</p>
           </div>
           <MarketingPreview />
         </section>
 
         <section className="wl-strip">
           <div className="wl-container">
-            For the work that gets done <span>— and then gets forgotten.</span>
+            Small moments of progress.
+            <span> A clearer picture of your impact.</span>
           </div>
         </section>
 
         <section id="how-it-works" className="wl-container wl-section">
           <div className="wl-section-heading">
-            <span className="eyebrow">A SIMPLE HABIT, A USEFUL RECORD</span>
+            <span className="eyebrow">FROM A QUICK NOTE TO YOUR IMPACT</span>
             <h2>
-              Write what happened.
+              Capture the work.
               <br />
-              That’s a good enough start.
+              See the contribution.
             </h2>
             <p className="lead">
-              You don’t need a polished success story to save a win.
+              Start with what happened. You can find the right words later.
             </p>
           </div>
+
           <div className="wl-steps">
             <article>
               <span className="wl-step-number">01 / CAPTURE</span>
-              <h3>Get it out of your head.</h3>
+              <h3>A quick note is enough.</h3>
               <p>
-                Write a quick note about what you fixed, finished, learned, or
-                helped with. Save it in seconds.
+                Write what you fixed, finished, learned, or helped with. No
+                special format. No need to make it sound impressive.
               </p>
               <div className="wl-note">
-                “Finally figured out why the reports were slow.”
+                “Helped a client get their internet working again.”
               </div>
             </article>
+
             <article>
-              <span className="wl-step-number">02 / REFLECT</span>
-              <h3>Catch the moments you missed.</h3>
+              <span className="wl-step-number">02 / REMEMBER</span>
+              <h3>Your progress, in one place.</h3>
               <p>
-                Take a few minutes to look back on your week. Simple prompts
-                help you remember the work between the big milestones.
+                Browse your wins in a dated timeline. When you need a little
+                help remembering, use the reflection prompts to revisit your
+                week.
               </p>
               <div className="wl-note">
-                What did you finish?
+                Problems you solved.
                 <br />
-                Who did you help?
+                People you helped.
                 <br />
-                What did you learn?
+                Work you moved forward.
               </div>
             </article>
+
             <article>
-              <span className="wl-step-number">03 / REMEMBER</span>
-              <h3>Keep the evidence close.</h3>
+              <span className="wl-step-number">03 / SEE YOUR IMPACT</span>
+              <h3>Recognize what you bring.</h3>
               <p>
-                Come back to your dated record when it’s time to explain your
-                contribution, update your resume, or prepare for a review.
+                Generate an accomplishment profile with a professional summary
+                and key contributions drawn from your wins. Read it, refine it,
+                and keep a saved version.
               </p>
               <div className="wl-note">
-                Less reconstructing your year.
+                Your experience.
                 <br />
-                More remembering what mattered.
+                Put into words you can build on.
               </div>
             </article>
           </div>
@@ -115,36 +120,41 @@ export default function Home() {
         <section className="wl-purpose">
           <div className="wl-container wl-purpose-grid">
             <div>
-              <span className="eyebrow">FOR YOUR NEXT CAREER CONVERSATION</span>
+              <span className="eyebrow">
+                A PROFILE BUILT FROM YOUR OWN WORK
+              </span>
               <h2>
-                Performance reviews
+                More confidence.
                 <br />
-                shouldn’t be a memory test.
+                Real examples behind it.
               </h2>
             </div>
             <div>
               <p className="lead">
-                Six months from now, the details will be harder to find. Start
-                keeping them today.
+                When someone asks what you’ve contributed, you don’t have to
+                start with a blank page. Your Impact gives you a starting point
+                grounded in the work you’ve recorded.
               </p>
               <ul className="wl-use-list">
                 <li>
-                  <strong>Performance reviews</strong>
-                  <span>Remember your contributions across the year.</span>
-                </li>
-                <li>
-                  <strong>Resume updates</strong>
-                  <span>Find concrete examples of the work you’ve done.</span>
-                </li>
-                <li>
-                  <strong>Promotion conversations</strong>
+                  <strong>Recognize your progress</strong>
                   <span>
-                    Bring a record of responsibility, initiative, and growth.
+                    See contributions that are easy to overlook in a busy week.
                   </span>
                 </li>
                 <li>
-                  <strong>Interview preparation</strong>
-                  <span>Revisit real situations you can talk about.</span>
+                  <strong>Prepare for a performance review</strong>
+                  <span>Bring specific examples into the conversation.</span>
+                </li>
+                <li>
+                  <strong>Find material for your resume</strong>
+                  <span>
+                    Use your outcomes as a starting point for stronger bullets.
+                  </span>
+                </li>
+                <li>
+                  <strong>Prepare for an interview</strong>
+                  <span>Revisit real situations and the part you played.</span>
                 </li>
               </ul>
             </div>
@@ -156,56 +166,151 @@ export default function Home() {
             ↳
           </span>
           <div>
-            <span className="eyebrow">PRIVATE BY DEFAULT</span>
-            <h2>Your record. Your account.</h2>
+            <span className="eyebrow">YOUR NOTES. YOUR CHOICE.</span>
+            <h2>A personal space for your progress.</h2>
             <p>
-              Saved wins are private to your account. WinLog doesn’t connect to
-              your employer’s GitHub, Jira, Slack, or email. You choose what to
-              write down.
+              Your wins and profiles are private to your account. WinLog doesn’t
+              connect to your employer’s GitHub, Jira, Slack, or email. You
+              choose what to record and when to generate a profile.
             </p>
+          </div>
+        </section>
+
+        <section id="pricing" className="wl-container wl-section wl-pricing">
+          <div className="wl-section-heading">
+            <span className="eyebrow">START WITH WHAT YOU’VE DONE</span>
+            <h2>A little space for your wins.</h2>
+            <p className="lead">
+              Start during beta. Get more room to build your Impact with Pro.
+            </p>
+          </div>
+
+          <div className="wl-pricing-grid">
+            <article className="wl-price-card">
+              <div className="wl-price-heading">
+                <h3>WinLog Beta</h3>
+                <span className="wl-chip">Available now</span>
+              </div>
+              <p className="wl-price">
+                Free<span>during beta</span>
+              </p>
+              <p className="wl-price-description">
+                Start capturing your wins and see what your work adds up to.
+              </p>
+              <ul className="wl-price-features">
+                <li>Quick win capture and dated timeline</li>
+                <li>Weekly reflection prompts</li>
+                <li>5 AI profile generations during beta</li>
+                <li>View the wins supporting your profile</li>
+                <li>Edit, copy, and browse saved profiles</li>
+                <li>Light, dark, and system themes</li>
+              </ul>
+              <Link className="button" href="/signup">
+                Get started free <span aria-hidden="true">↗</span>
+              </Link>
+              <p className="wl-price-note">
+                No credit card required. The beta generation allowance does not
+                reset monthly.
+              </p>
+            </article>
+
+            <article className="wl-price-card wl-price-pro">
+              <div className="wl-price-heading">
+                <h3>WinLog Pro</h3>
+                <span className="wl-chip">Coming soon</span>
+              </div>
+              <p className="wl-price wl-price-pending">
+                Paid plan<span>Pricing to be announced</span>
+              </p>
+              <p className="wl-price-description">
+                For keeping your Impact up to date as your work grows.
+              </p>
+              <ul className="wl-price-features">
+                <li>Everything included in the beta</li>
+                <li>More AI profile generations planned</li>
+                <li>Generation allowance to be announced</li>
+              </ul>
+              <div className="wl-price-availability">
+                Pro subscriptions are coming soon
+              </div>
+              <p className="wl-price-note">
+                Pro is not available to purchase yet. Final pricing and plan
+                limits will be published before launch.
+              </p>
+            </article>
           </div>
         </section>
 
         <section className="wl-container wl-faq">
           <h2>A few things you might be wondering.</h2>
+
           <details>
             <summary>What counts as a win?</summary>
             <p>
-              A difficult fix, a finished task, helping someone, positive
-              feedback, learning something useful, or making a process easier.
-              Everyday contributions count too.
+              Something you fixed, finished, learned, improved, or helped
+              someone with. It doesn’t need to be a big milestone. Everyday
+              contributions belong here too.
             </p>
           </details>
+
           <details>
-            <summary>Do I have to log something every day?</summary>
+            <summary>Do I need to write something every day?</summary>
             <p>
-              No. Capture a moment when it happens, or use the weekly reflection
-              page to catch up. Missing a week doesn’t erase your progress.
+              No. Add a win when it happens, or look back on your week using the
+              reflection prompts. Your record grows at your pace.
             </p>
           </details>
+
           <details>
-            <summary>Does WinLog generate career documents with AI?</summary>
+            <summary>What does Your Impact generate?</summary>
             <p>
-              Yes. You can generate a private accomplishment profile with a
-              professional summary, key outcomes, and links to your source wins.
-              Generation is optional and limited during beta. Selected wins are
-              sent to OpenAI. Automated reminder emails are not active yet.
+              An accomplishment profile with a professional summary and key
+              outcomes or contributions based on your selected wins. You can
+              open the document, view its supporting notes, edit the wording,
+              and copy it.
+            </p>
+          </details>
+
+          <details>
+            <summary>Will it write my resume or performance review?</summary>
+            <p>
+              The current version creates an accomplishment profile. It gives
+              you material to adapt for a resume, review, or interview.
+              Dedicated document formats are not available yet.
+            </p>
+          </details>
+
+          <details>
+            <summary>Do I have to use AI?</summary>
+            <p>
+              No. You can keep your wins and use the timeline without generating
+              a profile. If you choose to generate one, the selected wins are
+              sent to OpenAI. Review the wording before using it elsewhere.
+            </p>
+          </details>
+
+          <details>
+            <summary>What happens when I use all five generations?</summary>
+            <p>
+              You can continue recording wins and viewing, editing, and copying
+              your saved profiles. Creating another AI profile requires
+              additional generation allowance. Paid plans have not launched yet.
             </p>
           </details>
         </section>
 
         <section className="wl-container wl-final">
-          <span className="eyebrow">YOUR CAREER HAS RECEIPTS</span>
+          <span className="eyebrow">YOU HAVE SOMETHING TO BUILD ON</span>
           <h2>
             Start with one thing
             <br />
-            you did this week.
+            you got done.
           </h2>
           <Link className="button" href="/signup">
             Save your first win <span aria-hidden="true">↗</span>
           </Link>
           <p className="muted">
-            It doesn’t have to sound impressive. It just has to be yours.
+            A quick note today. A clearer picture of your work over time.
           </p>
         </section>
       </main>
@@ -214,9 +319,7 @@ export default function Home() {
         <Link className="brand" href="/">
           WinLog<span>●</span>
         </Link>
-        <span className="muted">
-          A little note today. Evidence for tomorrow.
-        </span>
+        <span className="muted">Your work. Worth seeing.</span>
         <Link href="/login">Log in</Link>
       </footer>
     </div>
