@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase";
 import { signout } from "@/app/actions";
 import { ThemeSelect } from "@/components/theme";
 import { WinModalProvider } from "@/components/add-win-modal";
+import "./app/accomplishments.css";
 
 export const dynamic = "force-dynamic";
 
@@ -17,26 +18,46 @@ export default async function Private({
     data: { user },
     error,
   } = await db.auth.getUser();
+
   if (error || !user) redirect("/login");
 
   return (
     <WinModalProvider userId={user.id}>
-      <header className="nav">
+      <header className="nav accomplishment-nav">
         <Link className="brand" href="/app">
           WinLog<span>●</span>
         </Link>
-        <nav className="row" aria-label="App navigation">
-          <Link href="/app">Your Impact</Link>
-          <Link href="/app/records">Timeline</Link>
+
+        <nav className="ac-desktop-nav" aria-label="App navigation">
+          <Link href="/app">Accomplishments</Link>
           <Link href="/app/reflect">Reflect</Link>
           <Link href="/settings">Settings</Link>
           <ThemeSelect />
           <form action={signout}>
-            <button className="text-button">Sign out</button>
+            <button className="text-button" type="submit">
+              Sign out
+            </button>
           </form>
         </nav>
+
+        <details className="ac-mobile-menu">
+          <summary aria-label="Open navigation">☰</summary>
+          <nav className="ac-mobile-drawer" aria-label="Mobile navigation">
+            <span className="eyebrow">YOUR ACCOUNT</span>
+            <Link href="/app">Accomplishments</Link>
+            <Link href="/app/reflect">Reflect</Link>
+            <Link href="/settings">Settings</Link>
+            <ThemeSelect />
+            <form action={signout}>
+              <button className="text-button" type="submit">
+                Sign out
+              </button>
+            </form>
+          </nav>
+        </details>
       </header>
-      <main className="workspace">{children}</main>
+
+      <main className="workspace accomplishment-workspace">{children}</main>
     </WinModalProvider>
   );
 }

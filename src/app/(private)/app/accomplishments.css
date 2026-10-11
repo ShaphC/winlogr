@@ -1,0 +1,528 @@
+/* Layout */
+.workspace.accomplishment-workspace {
+  max-width: 1120px;
+  width: calc(100% - 64px);
+  margin: 34px auto 80px;
+}
+.ac-library {
+  min-width: 0;
+}
+.ac-page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 30px;
+}
+.ac-page-heading h1 {
+  margin: 12px 0 8px;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -1.2px;
+}
+.ac-page-heading p {
+  margin: 0;
+}
+.ac-heading-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ac-library .ac-secondary {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.ac-library .ac-secondary:hover:not(:disabled) {
+  background: var(--soft);
+}
+
+/* Navigation */
+.ac-desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.ac-desktop-nav form,
+.ac-mobile-drawer form {
+  margin: 0;
+}
+.ac-mobile-menu {
+  display: none;
+}
+
+/* Search and filters */
+.ac-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ac-search {
+  flex: 1;
+  min-width: 0;
+}
+.ac-toolbar input,
+.ac-toolbar select,
+.ac-document-title input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+.ac-toolbar input,
+.ac-toolbar select {
+  height: 44px;
+}
+.ac-view-control {
+  width: 175px;
+}
+.ac-filter-menu {
+  position: relative;
+}
+.ac-filter-menu > summary {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  cursor: pointer;
+  font-size: 13px;
+  list-style: none;
+}
+.ac-filter-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.ac-filter-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 5;
+  display: grid;
+  gap: 14px;
+  width: 260px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 12%);
+}
+.ac-filter-panel label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+}
+.ac-results-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 18px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Accomplishment cards */
+.ac-entries {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+}
+.ac-card {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+.ac-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 25px rgb(20 30 60 / 6%);
+}
+.ac-card.is-selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.ac-library .ac-card-open {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.ac-library .ac-card-open:hover:not(:disabled) {
+  background: transparent;
+  opacity: 1;
+}
+.ac-library .ac-card-open:active:not(:disabled) {
+  transform: none;
+}
+.ac-card:has(.ac-card-checkbox) .ac-card-open {
+  padding-top: 46px;
+}
+.ac-card-excerpt {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.ac-card-open time {
+  margin-top: auto;
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.ac-card-checkbox {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  z-index: 1;
+  display: flex;
+}
+.ac-library .ac-card-checkbox input,
+.ac-library .ac-inline-checkbox input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+.ac-card-open:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -4px;
+}
+
+/* List view */
+.ac-entries.is-list {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.ac-entries.is-list .ac-card {
+  aspect-ratio: auto;
+}
+.ac-entries.is-list .ac-card-open {
+  padding: 20px 24px;
+  gap: 12px;
+}
+.ac-entries.is-list .ac-card:has(.ac-card-checkbox) .ac-card-open {
+  padding-left: 50px;
+}
+.ac-entries.is-list .ac-card-checkbox {
+  top: 23px;
+}
+.ac-entries.is-list .ac-card-excerpt {
+  -webkit-line-clamp: 2;
+}
+
+/* Empty states */
+.ac-empty {
+  padding: 70px 24px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+}
+.ac-empty h2 {
+  margin: 0 auto 14px;
+  max-width: 550px;
+  font-size: 25px;
+  line-height: 1.4;
+}
+.ac-empty p {
+  max-width: 460px;
+  margin: 0 auto 24px;
+  color: var(--muted);
+}
+
+/* Selection */
+.ac-selection-bar {
+  position: sticky;
+  bottom: 20px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 24px auto 0;
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: 0 10px 35px rgb(0 0 0 / 12%);
+  font-size: 13px;
+}
+
+/* Entry and review modals */
+.ac-dialog {
+  box-sizing: border-box;
+  width: min(640px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  color: var(--ink);
+}
+.ac-dialog::backdrop {
+  background: rgb(10 14 25 / 55%);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.ac-dialog-heading {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+.ac-dialog-heading h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+.ac-dialog-heading button {
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.ac-dialog-body {
+  padding: 26px;
+}
+.ac-full-note {
+  margin: 20px 0;
+  font-size: 16px;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ac-entry-actions {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.ac-existing-polish {
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+.ac-existing-polish h3 {
+  font-size: 13px;
+}
+.ac-dialog input,
+.ac-dialog textarea {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.ac-dialog .muted {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Sharing preview */
+.ac-review-dialog {
+  width: min(800px, calc(100% - 32px));
+}
+.ac-document-title {
+  display: grid;
+  gap: 8px;
+  margin: 20px 0 16px;
+  font-size: 13px;
+}
+.ac-inline-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+}
+.ac-document-preview {
+  margin: 24px 0;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+}
+.ac-document-preview h2 {
+  margin: 0 0 24px;
+  font-size: 27px;
+  overflow-wrap: anywhere;
+}
+.ac-document-preview section + section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.ac-document-preview time {
+  color: var(--muted);
+  font-size: 12px;
+}
+.ac-document-preview p {
+  margin: 8px 0 12px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ac-document-preview button {
+  font-size: 11px;
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+  .ac-entries {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ac-page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .ac-library .ac-card-open {
+    padding: 20px;
+  }
+}
+
+/* Mobile navigation and cards */
+@media (max-width: 760px) {
+  .workspace.accomplishment-workspace {
+    width: calc(100% - 32px);
+    margin-top: 26px;
+  }
+  .ac-desktop-nav {
+    display: none;
+  }
+  .ac-mobile-menu {
+    display: block;
+  }
+  .ac-mobile-menu > summary {
+    position: relative;
+    z-index: 32;
+    padding: 8px 12px;
+    font-size: 22px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .ac-mobile-menu > summary::-webkit-details-marker {
+    display: none;
+  }
+  .ac-mobile-menu[open]::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgb(10 14 25 / 35%);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+  .ac-mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 31;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: min(300px, 85vw);
+    padding: 90px 28px 28px;
+    border-left: 1px solid var(--line);
+    background: var(--panel);
+    overflow: auto;
+  }
+  .ac-toolbar {
+    flex-wrap: wrap;
+  }
+  .ac-search {
+    flex-basis: 100%;
+  }
+  .ac-view-control {
+    flex: 1;
+    width: auto;
+  }
+  .ac-filter-panel {
+    left: 0;
+    right: auto;
+    width: min(260px, calc(100vw - 76px));
+  }
+  .ac-entries {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .ac-library .ac-card-open {
+    padding: 16px;
+    gap: 12px;
+  }
+  .ac-card-excerpt {
+    font-size: 13px;
+    line-height: 1.55;
+    -webkit-line-clamp: 4;
+  }
+  .ac-card-open time {
+    font-size: 10px;
+  }
+  .ac-card:has(.ac-card-checkbox) .ac-card-open {
+    padding-top: 42px;
+  }
+  .ac-heading-actions {
+    gap: 10px;
+  }
+  .ac-heading-actions button {
+    font-size: 12px;
+  }
+  .ac-dialog-heading,
+  .ac-dialog-body {
+    padding: 20px;
+  }
+  .ac-dialog-heading h2 {
+    font-size: 18px;
+  }
+  .ac-document-preview {
+    padding: 22px;
+  }
+  .ac-selection-bar {
+    bottom: 12px;
+    gap: 12px;
+    padding: 12px;
+  }
+}
+@media (max-width: 380px) {
+  .ac-entries {
+    grid-template-columns: 1fr;
+  }
+  .ac-card {
+    aspect-ratio: auto;
+    min-height: 180px;
+  }
+}
