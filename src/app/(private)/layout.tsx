@@ -31,7 +31,7 @@ function NavigationItems() {
   return (
     <>
       <Link href="/app">Accomplishments</Link>
-      <Link href="/app/impact">Impact</Link>
+      <Link href="/app/impact">Highlights</Link>
       <div className="ac-nav-controls">
         <ThemeToggle />
         <Link
