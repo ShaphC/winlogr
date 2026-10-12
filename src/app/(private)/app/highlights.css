@@ -1,0 +1,65 @@
+/* Highlights document */
+.highlights-document .paper-headline {
+  margin-top: 0;
+}
+.highlights-document .paper-name + .paper-headline,
+.highlights-document .paper-role + .paper-headline {
+  margin-top: 18px;
+}
+.highlights-document .paper-outcomes {
+  padding-top: 10px;
+}
+.highlights-document .highlights-entry {
+  margin-top: 0;
+  color: var(--ink);
+}
+.highlights-date {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.paper-preview-sheet .highlights-entry {
+  font-size: 19px;
+  line-height: 1.75;
+}
+.paper-preview-sheet .highlights-date {
+  font-size: 14px;
+}
+.paper-reader .highlights-entry {
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+/* Preserve checkbox sizing inside profile modals */
+.profile-modal label.highlights-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  text-align: left;
+}
+.profile-modal label.highlights-checkbox input[type="checkbox"] {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  accent-color: var(--accent);
+}
+.highlights-workspace .paper-placeholder .button {
+  align-self: flex-start;
+  margin-top: 18px;
+}
+.highlights-workspace .dated-win .text-button {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .paper-reader .highlights-entry {
+    font-size: 15px;
+  }
+}

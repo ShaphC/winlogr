@@ -388,7 +388,7 @@ export function AccomplishmentLibrary({
             disabled={!selectedWins.length}
             onClick={openImpactPreview}
           >
-            Preview Impact
+            Preview highlights
           </button>
           {previewError && (
             <span className="error" role="alert">
