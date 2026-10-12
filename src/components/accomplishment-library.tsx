@@ -32,6 +32,9 @@ export function AccomplishmentLibrary({
   const [editing, setEditing] = useState(false);
   const [currentMonth, setCurrentMonth] = useState("");
   const [previewError, setPreviewError] = useState("");
+  const [selectionReady, setSelectionReady] = useState(false);
+  const selectionKey = `winlog:impact-selection:${userId}`;
+  const filtersKey = `winlog:library-filters:${userId}`;
 
   const entryDialog = useRef<HTMLDialogElement>(null);
   const datesMenu = useRef<HTMLDetailsElement>(null);
@@ -94,6 +97,53 @@ export function AccomplishmentLibrary({
       setActiveId(null);
     }
   }, [wins, activeId]);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(selectionKey);
+      const parsed = stored ? JSON.parse(stored) : [];
+      const existingIds = new Set(wins.map((win) => win.id));
+
+      const restored = Array.isArray(parsed)
+        ? parsed.filter(
+            (id): id is string => typeof id === "string" && existingIds.has(id),
+          )
+        : [];
+
+      setSelected(restored);
+      setSelecting(restored.length > 0);
+
+      const storedFilters = localStorage.getItem(filtersKey);
+      const filters = storedFilters ? JSON.parse(storedFilters) : null;
+
+      if (filters && typeof filters === "object") {
+        setSearch(typeof filters.search === "string" ? filters.search : "");
+        setStart(
+          typeof filters.start === "string" &&
+            /^\d{4}-\d{2}-\d{2}$/.test(filters.start)
+            ? filters.start
+            : "",
+        );
+        setEnd(
+          typeof filters.end === "string" &&
+            /^\d{4}-\d{2}-\d{2}$/.test(filters.end)
+            ? filters.end
+            : "",
+        );
+      }
+    } catch {}
+
+    setSelectionReady(true);
+  }, [selectionKey, filtersKey]); // Restore when this page mounts.
+
+  useEffect(() => {
+    if (!selectionReady) return;
+
+    try {
+      localStorage.setItem(selectionKey, JSON.stringify(selected));
+      localStorage.setItem(filtersKey, JSON.stringify({ search, start, end }));
+    } catch {}
+  }, [selected, search, start, end, selectionReady, selectionKey, filtersKey]);
 
   function saveView(nextView: "grid" | "list") {
     setView(nextView);
@@ -177,7 +227,6 @@ export function AccomplishmentLibrary({
 
   function cancelSelection() {
     setSelecting(false);
-    setSelected([]);
     setPreviewError("");
   }
 
@@ -382,6 +431,17 @@ export function AccomplishmentLibrary({
             disabled={!filtered.length}
           >
             Select visible
+          </button>
+          <button
+            type="button"
+            className="text-button"
+            disabled={!selected.length}
+            onClick={() => {
+              setSelected([]);
+              setPreviewError("");
+            }}
+          >
+            Unselect all
           </button>
           <button
             type="button"

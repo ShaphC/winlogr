@@ -1,6 +1,7 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
 import { saveStarter, skipStarter } from "@/app/impact-actions";
+import { Spinner } from "@/components/spinner";
 export function StarterProfile({
   name,
   role,
@@ -89,6 +90,7 @@ export function StarterProfile({
           ))}
           <div className="row">
             <button disabled={pending || skipping}>
+              {pending && <Spinner />}
               {pending ? "Saving…" : "Save and continue"}
             </button>
             <button

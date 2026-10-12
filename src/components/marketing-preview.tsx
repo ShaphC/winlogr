@@ -2,26 +2,31 @@
 
 import { useEffect, useState } from "react";
 
-const examples = [
+const accomplishments = [
   {
-    label: "Fixed",
-    day: "MONDAY",
-    text: "Resolved a recurring login issue caused by refresh tokens not updating.",
+    date: "Oct 8, 2026",
+    text: "Resolved a login issue and added a regression test.",
   },
   {
-    label: "Helped",
-    day: "WEDNESDAY",
-    text: "Walked a teammate through their first production deployment.",
+    date: "Oct 7, 2026",
+    text: "Restored a client’s internet access and verified connectivity.",
   },
   {
-    label: "Improved",
-    day: "FRIDAY",
-    text: "Simplified the steps for preparing the weekly customer report.",
+    date: "Oct 6, 2026",
+    text: "Helped a teammate troubleshoot their first deployment.",
+  },
+  {
+    date: "Oct 5, 2026",
+    text: "Documented the account setup process for new team members.",
+  },
+  {
+    date: "Oct 4, 2026",
+    text: "Completed a course module on network troubleshooting.",
   },
 ];
 
 export function MarketingPreview() {
-  const [active, setActive] = useState<"timeline" | "impact">("timeline");
+  const [active, setActive] = useState<"tiles" | "highlights">("tiles");
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -30,19 +35,23 @@ export function MarketingPreview() {
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReducedMotion(media.matches);
+
     update();
     media.addEventListener("change", update);
+
     return () => media.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
     if (paused || hovered || focused || reducedMotion) return;
+
     const timer = window.setInterval(() => {
       if (document.hidden) return;
-      setActive((current) => (current === "timeline" ? "impact" : "timeline"));
+      setActive((current) => (current === "tiles" ? "highlights" : "tiles"));
     }, 5000);
+
     return () => window.clearInterval(timer);
-  }, [paused, hovered, focused, reducedMotion, active]);
+  }, [active, paused, hovered, focused, reducedMotion]);
 
   return (
     <div
@@ -58,120 +67,133 @@ export function MarketingPreview() {
     >
       <div className="wl-preview-stack">
         <article
-          className={`wl-preview wl-stack-card ${active === "timeline" ? "is-front" : "is-back"}`}
-          aria-label="Example wins timeline"
-          aria-hidden={active !== "timeline"}
+          className={`wl-preview wl-stack-card ${
+            active === "tiles" ? "is-front" : "is-back"
+          }`}
+          aria-hidden={active !== "tiles"}
+          aria-label="Illustrative accomplishment library"
         >
           <div className="wl-preview-top">
             <span className="brand">
               WinLog<span>●</span>
             </span>
-            <span className="wl-chip">Example timeline</span>
+            <span className="wl-chip">Example collection</span>
           </div>
-          <div className="wl-preview-body">
-            <span className="eyebrow">A FEW MOMENTS FROM YOUR WEEK</span>
-            <h2>Small wins add up.</h2>
-            {examples.map((item) => (
-              <div className="wl-example" key={item.label}>
-                <span className="wl-example-dot" aria-hidden="true" />
-                <div>
-                  <span className="wl-example-meta">
-                    {item.day} · {item.label}
+
+          <div className="wl-preview-body wl-tiles-example">
+            <span className="eyebrow">YOUR ACCOMPLISHMENTS</span>
+            <h2>A few things worth keeping.</h2>
+
+            <div className="wl-demo-toolbar">
+              <span className="wl-demo-search">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="10.5" cy="10.5" r="6.5" />
+                  <path d="m16 16 4.5 4.5" />
+                </svg>
+                Search accomplishments
+              </span>
+              <span className="wl-demo-filter">Tiles</span>
+            </div>
+
+            <p className="wl-demo-month">October 2026</p>
+
+            <div className="wl-demo-tiles">
+              {accomplishments.map((item, index) => (
+                <div
+                  className={`wl-demo-tile ${index < 3 ? "is-selected" : ""}`}
+                  key={item.text}
+                >
+                  <span className="wl-demo-check" aria-hidden="true">
+                    {index < 3 ? "✓" : ""}
                   </span>
                   <p>{item.text}</p>
+                  <span className="wl-demo-date">{item.date}</span>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
             <div className="wl-preview-note">
-              <span aria-hidden="true">✓</span>A record you can come back to.
+              <span aria-hidden="true">✓</span>
+              Three selected for Highlights
             </div>
           </div>
         </article>
 
         <article
-          className={`wl-preview wl-stack-card ${active === "impact" ? "is-front" : "is-back"}`}
-          aria-label="Example accomplishment profile"
-          aria-hidden={active !== "impact"}
+          className={`wl-preview wl-stack-card ${
+            active === "highlights" ? "is-front" : "is-back"
+          }`}
+          aria-hidden={active !== "highlights"}
+          aria-label="Illustrative highlights document preview"
         >
           <div className="wl-preview-top">
             <span className="brand">
               WinLog<span>●</span>
             </span>
-            <span className="wl-chip">Example impact</span>
+            <span className="wl-chip">Example Highlights</span>
           </div>
-          <div className="wl-preview-body wl-impact-example">
-            <span className="eyebrow">YOUR IMPACT</span>
-            <h2>
-              Practical problem solving.
-              <br />
-              Support that moves work forward.
-            </h2>
-            <section className="wl-impact-summary">
-              <h3>Professional summary</h3>
-              <p>
-                You bring practical problem-solving skills to technical
-                challenges and support to the people working alongside you. Your
-                contributions span resolving a recurring login issue, guiding a
-                teammate through deployment, and simplifying weekly reporting.
-              </p>
-            </section>
-            <section className="wl-impact-outcomes">
-              <h3>Key outcomes & contributions</h3>
-              <div>
-                <span aria-hidden="true">01</span>
-                <p>
-                  <strong>Resolved a recurring login issue</strong>
-                  Corrected refresh-token updates behind repeated login
-                  problems.
-                </p>
-              </div>
-              <div>
-                <span aria-hidden="true">02</span>
-                <p>
-                  <strong>Supported a first deployment</strong>
-                  Guided a teammate through their first production deployment.
-                </p>
-              </div>
-              <div>
-                <span aria-hidden="true">03</span>
-                <p>
-                  <strong>Simplified weekly reporting</strong>
-                  Made the customer-report preparation steps easier to follow.
-                </p>
-              </div>
-            </section>
+
+          <div className="wl-preview-body wl-highlights-example">
+            <span className="eyebrow">REVIEW BEFORE SHARING</span>
+            <h2>Your examples, brought together.</h2>
+
+            <div className="wl-demo-paper">
+              <header>
+                <span className="wl-demo-person">Alex Morgan</span>
+                <h3>October one-on-one</h3>
+              </header>
+
+              {accomplishments.slice(0, 3).map((item, index) => (
+                <div className="wl-demo-outcome" key={item.text}>
+                  <span aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p>{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="wl-preview-note">
+              <span aria-hidden="true">✓</span>
+              Review your selection. Copy when ready.
+            </div>
           </div>
         </article>
       </div>
 
-      <div
-        className="wl-preview-switcher"
-        aria-label="Example preview controls"
-      >
+      <div className="wl-preview-switcher" aria-label="Choose example">
         <button
           type="button"
-          aria-pressed={active === "timeline"}
-          onClick={() => setActive("timeline")}
+          aria-pressed={active === "tiles"}
+          onClick={() => setActive("tiles")}
         >
-          Timeline
+          Accomplishments
         </button>
         <button
           type="button"
-          aria-pressed={active === "impact"}
-          onClick={() => setActive("impact")}
+          aria-pressed={active === "highlights"}
+          onClick={() => setActive("highlights")}
         >
-          Your Impact
+          Highlights
         </button>
+
         {!reducedMotion && (
           <button
             type="button"
             className="wl-preview-pause"
-            aria-label={
-              paused
-                ? "Resume automatic switching"
-                : "Pause automatic switching"
-            }
             onClick={() => setPaused((current) => !current)}
+            aria-label={
+              paused ? "Play example animation" : "Pause example animation"
+            }
           >
             {paused ? "Play" : "Pause"}
           </button>

@@ -1,17 +1,32 @@
 import "./landing.css";
-
 import Link from "next/link";
-import { ThemeSelect } from "@/components/theme";
+import { ThemeToggle } from "@/components/theme";
 import { MarketingPreview } from "@/components/marketing-preview";
 import { createClient } from "@/lib/supabase";
 import { signout } from "@/app/actions";
 
+const examples = [
+  {
+    date: "OCTOBER 8",
+    text: "Resolved a login issue and added a regression test.",
+  },
+  {
+    date: "OCTOBER 7",
+    text: "Restored a client’s internet access and verified connectivity.",
+  },
+  {
+    date: "OCTOBER 6",
+    text: "Helped a teammate troubleshoot their first deployment.",
+  },
+];
+
 export default async function Home() {
   const supabase = await createClient();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const destination = user ? "/app" : "/signup";
 
   return (
     <div className="wl-home">
@@ -24,27 +39,24 @@ export default async function Home() {
           <a className="wl-how-link" href="#how-it-works">
             How it works
           </a>
-
           <a href="#pricing">Pricing</a>
 
-          <ThemeSelect />
+          <ThemeToggle />
 
           {user ? (
             <>
-              <form action={signout} className="wl-nav-logout">
-                <button type="submit" className="text-button">
-                  Log out
-                </button>
-              </form>
-
               <Link className="button" href="/app">
                 Continue
               </Link>
+              <form action={signout} className="wl-nav-logout">
+                <button type="submit" className="ac-signout-button">
+                  Sign out
+                </button>
+              </form>
             </>
           ) : (
             <>
               <Link href="/login">Log in</Link>
-
               <Link className="button" href="/signup">
                 Get started
               </Link>
@@ -56,96 +68,104 @@ export default async function Home() {
       <main id="main-content">
         <section className="wl-hero wl-container">
           <div className="wl-hero-copy">
-            <span className="eyebrow">SEE WHAT YOU’RE CAPABLE OF</span>
+            <span className="eyebrow">
+              YOUR ACCOMPLISHMENTS. READY WHEN YOU NEED THEM.
+            </span>
             <h1>
-              You’ve done more
+              Remember it.
               <br />
-              than you <em>give yourself credit for.</em>
+              <em>Show what you did.</em>
             </h1>
             <p className="lead">
-              The problem you solved. The thing you finished. The person you
-              helped. Capture your accomplishments and see what they reveal
-              about the strengths you’ve already put into practice.
+              Save the problems you solved, things you learned, and people you
+              helped. Find your examples when it’s time for a one-on-one,
+              performance review, or your next opportunity.
             </p>
+
             <div className="row wl-hero-actions">
-              <Link className="button" href="/signup">
-                Start with a win <span aria-hidden="true">↗</span>
+              <Link className="button" href={destination}>
+                {user
+                  ? "Open your accomplishments"
+                  : "Save your first accomplishment"}{" "}
+                <span aria-hidden="true">↗</span>
               </Link>
               <a href="#how-it-works">
                 See how it works <span aria-hidden="true">↓</span>
               </a>
             </div>
+
             <p className="muted">Free during beta. No credit card required.</p>
           </div>
+
           <MarketingPreview />
         </section>
 
         <section className="wl-strip">
           <div className="wl-container">
-            Your accomplishments tell a story.
-            <span> Give yourself a chance to see it.</span>
+            A quick note today.
+            <span> An example you won’t have to reconstruct later.</span>
           </div>
         </section>
 
         <section id="how-it-works" className="wl-container wl-section">
           <div className="wl-section-heading">
-            <span className="eyebrow">
-              FROM EVERYDAY WINS TO SELF-RECOGNITION
-            </span>
+            <span className="eyebrow">SAVE · FIND · PREPARE</span>
             <h2>
-              Remember what you’ve done.
+              Keep the accomplishments.
               <br />
-              Recognize what you can do.
+              Choose the highlights.
             </h2>
             <p className="lead">
-              A few honest notes can help you see strengths you might otherwise
-              overlook.
+              Start with your own words. Decide what to show when you need it.
             </p>
           </div>
 
           <div className="wl-steps">
             <article>
-              <span className="wl-step-number">01 / CAPTURE</span>
-              <h3>Start with something you did.</h3>
+              <span className="wl-step-number">01 / SAVE</span>
+              <h3>A quick note is enough.</h3>
               <p>
-                Write down something you finished, figured out, learned, or
-                helped someone with. Small accomplishments count. A quick note
-                is enough.
+                Record something you finished, figured out, learned, or helped
+                someone with. You don’t need a polished story to remember what
+                happened.
               </p>
               <div className="wl-note">
-                “Figured out a problem I’d been stuck on.”
+                “Fixed the account issue and confirmed the client could sign in
+                again.”
               </div>
             </article>
 
             <article>
-              <span className="wl-step-number">02 / REMEMBER</span>
-              <h3>See your progress over time.</h3>
+              <span className="wl-step-number">02 / FIND</span>
+              <h3>Come back to your examples.</h3>
               <p>
-                Revisit your accomplishments in a dated timeline. Reflection
-                prompts help you remember the moments that get lost between one
-                day and the next.
+                Browse your collection in Tiles or List view. Search your notes,
+                filter by date, and open an entry to read or edit the full
+                details.
               </p>
               <div className="wl-note">
-                Challenges you worked through.
+                The fix you made.
                 <br />
-                Things you learned.
+                The support you gave.
                 <br />
-                Moments you made a difference.
+                The progress you forgot.
               </div>
             </article>
 
             <article>
-              <span className="wl-step-number">03 / SEE YOUR IMPACT</span>
-              <h3>Put your capabilities into words.</h3>
+              <span className="wl-step-number">03 / PREPARE</span>
+              <h3>Choose what you want to show.</h3>
               <p>
-                Generate a profile that brings your accomplishments together in
-                a summary and key contributions. Explore what your examples
-                demonstrate, then refine the wording to make it your own.
+                Select accomplishments and preview them as a Highlights
+                document. Add a title, choose whether to include dates, and copy
+                the text when you’re ready.
               </p>
               <div className="wl-note">
-                “I’ve done this.”
+                Your examples.
                 <br />
-                “I have something to build on.”
+                Your selection.
+                <br />
+                Reviewed before you use them.
               </div>
             </article>
           </div>
@@ -154,48 +174,48 @@ export default async function Home() {
         <section className="wl-purpose">
           <div className="wl-container wl-purpose-grid">
             <div>
-              <span className="eyebrow">
-                CONFIDENCE WITH SOMETHING BEHIND IT
-              </span>
+              <span className="eyebrow">MAKE YOUR CONTRIBUTIONS VISIBLE</span>
               <h2>
-                See your strengths
+                Have the examples.
                 <br />
-                in your own examples.
+                Explain your contribution.
               </h2>
             </div>
+
             <div>
               <p className="lead">
-                It can be hard to describe what you’re capable of when your
-                accomplishments feel scattered or ordinary. Your Impact brings
-                them together so you can recognize what you’ve demonstrated and
-                find words for it.
+                Help your manager understand what you’ve accomplished. Give
+                yourself useful material for a review, a job search, or a
+                conversation about what comes next.
               </p>
+
               <ul className="wl-use-list">
                 <li>
-                  <strong>Give yourself credit</strong>
+                  <strong>Prepare for a one-on-one</strong>
                   <span>
-                    Remember accomplishments you might have brushed aside or
-                    forgotten.
+                    Bring selected examples of recent progress into the
+                    conversation.
                   </span>
                 </li>
                 <li>
-                  <strong>Recognize your capabilities</strong>
+                  <strong>Support a review or promotion discussion</strong>
                   <span>
-                    Connect your strengths to specific things you’ve done.
+                    Recall your contributions and the details that explain why
+                    they mattered.
                   </span>
                 </li>
                 <li>
-                  <strong>Find words for your experience</strong>
+                  <strong>Find material for a resume or interview</strong>
                   <span>
-                    Use your profile as a starting point for a resume, review,
-                    or interview.
+                    Revisit real situations and choose examples relevant to your
+                    next opportunity.
                   </span>
                 </li>
                 <li>
-                  <strong>Carry your progress forward</strong>
+                  <strong>Recognize your own progress</strong>
                   <span>
-                    Revisit real examples when you’re considering a new
-                    challenge or opportunity.
+                    Keep learning, personal projects, and everyday
+                    accomplishments in view.
                   </span>
                 </li>
               </ul>
@@ -211,21 +231,21 @@ export default async function Home() {
             <span className="eyebrow">YOUR NOTES. YOUR CHOICE.</span>
             <h2>A personal space for your progress.</h2>
             <p>
-              Your wins and profiles are private to your account. You choose
-              what to record and when to generate a profile. There’s no public
-              feed or leaderboard—just a place to recognize your own
-              accomplishments.
+              Your saved accomplishments are private to your account. You choose
+              which entries to include in Highlights. Nothing is published or
+              sent automatically—you review the document and decide where to use
+              the copied text.
             </p>
           </div>
         </section>
 
         <section id="pricing" className="wl-container wl-section wl-pricing">
           <div className="wl-section-heading">
-            <span className="eyebrow">START WITH WHAT YOU’VE ALREADY DONE</span>
-            <h2>A little space for your accomplishments.</h2>
+            <span className="eyebrow">START WITH ONE ACCOMPLISHMENT</span>
+            <h2>Build a record worth keeping.</h2>
             <p className="lead">
-              Start during beta. Pro is planned for more profile generations as
-              your collection grows.
+              Try the current experience free during beta. Future paid plans are
+              still being defined.
             </p>
           </div>
 
@@ -235,53 +255,61 @@ export default async function Home() {
                 <h3>WinLog Beta</h3>
                 <span className="wl-chip">Available now</span>
               </div>
+
               <p className="wl-price">
                 Free<span>during beta</span>
               </p>
               <p className="wl-price-description">
-                Capture your accomplishments and begin recognizing what they say
-                about your capabilities.
+                Capture your accomplishments and prepare a selection for your
+                next conversation.
               </p>
+
               <ul className="wl-price-features">
-                <li>Quick win capture and dated timeline</li>
-                <li>Weekly reflection prompts</li>
-                <li>5 AI profile generations during beta</li>
-                <li>View the wins supporting your profile</li>
-                <li>Edit, copy, and browse saved profiles</li>
-                <li>Light, dark, and system themes</li>
+                <li>Quick accomplishment capture</li>
+                <li>Tiles and List views</li>
+                <li>Search and date filters</li>
+                <li>Read and edit your saved entries</li>
+                <li>Selected-accomplishment Highlights preview</li>
+                <li>Optional document name, role, and dates</li>
+                <li>Copy your Highlights text</li>
+                <li>Light, dark, and system appearance</li>
               </ul>
-              <Link className="button" href="/signup">
-                Get started free <span aria-hidden="true">↗</span>
+
+              <Link className="button" href={destination}>
+                {user ? "Continue to the app" : "Get started free"}{" "}
+                <span aria-hidden="true">↗</span>
               </Link>
               <p className="wl-price-note">
-                No credit card required. The beta generation allowance does not
-                reset monthly.
+                No credit card required. Highlights selections and document
+                preferences are currently remembered on this device.
               </p>
             </article>
 
             <article className="wl-price-card wl-price-pro">
               <div className="wl-price-heading">
                 <h3>WinLog Pro</h3>
-                <span className="wl-chip">Coming soon</span>
+                <span className="wl-chip">In development</span>
               </div>
+
               <p className="wl-price wl-price-pending">
                 Pro<span>Pricing to be announced</span>
               </p>
               <p className="wl-price-description">
-                More room to revisit your accomplishments and update the picture
-                of what you bring.
+                We’re exploring additional ways to prepare and use your
+                accomplishments.
               </p>
+
               <ul className="wl-price-features">
-                <li>Everything included in the beta</li>
-                <li>More AI profile generations planned</li>
-                <li>Generation allowance to be announced</li>
+                <li>Paid features are being evaluated</li>
+                <li>Pricing and limits are not finalized</li>
+                <li>Details will be published before purchase is available</li>
               </ul>
+
               <div className="wl-price-availability">
-                Pro subscriptions are coming soon
+                Not available to purchase yet
               </div>
               <p className="wl-price-note">
-                Pro is not available to purchase yet. Final pricing and plan
-                limits will be published before launch.
+                The current beta does not offer paid subscriptions.
               </p>
             </article>
           </div>
@@ -296,84 +324,82 @@ export default async function Home() {
           <details>
             <summary>What counts as an accomplishment?</summary>
             <p>
-              Something you finished, figured out, learned, improved, or helped
-              someone with. It doesn’t have to be an award or a major milestone.
-              Everyday progress counts too.
+              Something you finished, figured out, improved, learned, or helped
+              someone with. It can be a small contribution, a project milestone,
+              or positive feedback you want to remember.
             </p>
           </details>
 
           <details>
-            <summary>Does it have to be related to my job?</summary>
+            <summary>Is this only for developers and IT professionals?</summary>
             <p>
-              No. You can record accomplishments from a personal project,
-              studying, volunteering, or everyday life. The current generated
-              profile uses a professional summary format, so choose entries that
-              fit the profile you want to create.
+              No. You can record accomplishments from other professions,
+              studying, volunteering, or personal projects. Choose the examples
+              that matter to you.
             </p>
           </details>
 
           <details>
-            <summary>Do I need to write something every day?</summary>
+            <summary>Do I need to record something every day?</summary>
             <p>
-              No. Add a win when you want to remember it, or use the reflection
-              prompts to look back on your week. Your record grows at your pace.
+              No. Save an accomplishment when you want to remember it. You can
+              also add earlier accomplishments using their dates.
             </p>
           </details>
 
           <details>
-            <summary>What does Your Impact generate?</summary>
+            <summary>What are Highlights?</summary>
             <p>
-              An accomplishment profile with a summary and key outcomes or
-              contributions based on your selected wins. It helps put what
-              you’ve demonstrated into words. You can read it, view the
-              supporting notes, edit the wording, and copy it.
-            </p>
-          </details>
-
-          <details>
-            <summary>Will it write my resume or performance review?</summary>
-            <p>
-              The current version creates an accomplishment profile. You can
-              adapt its wording for a resume, review, or interview. Dedicated
-              document formats are not available yet.
-            </p>
-          </details>
-
-          <details>
-            <summary>Do I have to use AI?</summary>
-            <p>
-              No. You can capture accomplishments and use the timeline without
-              generating a profile. If you choose to generate one, the selected
-              wins are sent to OpenAI. Review the wording before using it
+              Highlights is a document preview containing accomplishments you
+              select from your collection. You can add a title, optionally
+              include your name, role, and dates, then copy the text for use
               elsewhere.
             </p>
           </details>
 
           <details>
-            <summary>What happens when I use all five generations?</summary>
+            <summary>Can I send someone a public sharing link?</summary>
             <p>
-              You can continue recording wins and viewing, editing, and copying
-              your saved profiles. Creating another AI profile requires
-              additional generation allowance. Pro subscriptions have not
-              launched yet.
+              Not yet. The current version lets you preview and copy your
+              Highlights into an email or another document. Nothing is published
+              or sent automatically.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              Does it write or rewrite my accomplishments with AI?
+            </summary>
+            <p>
+              The current Highlights experience uses your saved wording. AI
+              summary generation is hidden, and professional rewriting is not
+              available in this experience yet.
+            </p>
+          </details>
+
+          <details>
+            <summary>Will my Highlights selection sync across devices?</summary>
+            <p>
+              Saved accomplishments belong to your account. The current
+              Highlights selection and document settings are stored in your
+              browser, so you’ll need to select them again on another device.
             </p>
           </details>
         </section>
 
         <section className="wl-container wl-final">
-          <span className="eyebrow">
-            GIVE YOURSELF SOMETHING TO LOOK BACK ON
-          </span>
+          <span className="eyebrow">GIVE YOUR FUTURE SELF AN EXAMPLE</span>
           <h2>
             What’s one thing
             <br />
-            you’re glad you did?
+            worth remembering?
           </h2>
-          <Link className="button" href="/signup">
-            Save your first win <span aria-hidden="true">↗</span>
+          <Link className="button" href={destination}>
+            {user ? "Add an accomplishment" : "Save your first accomplishment"}{" "}
+            <span aria-hidden="true">↗</span>
           </Link>
           <p className="muted">
-            Start there. You may have more to recognize than you think.
+            Start with what happened. Keep the details while they’re fresh.
           </p>
         </section>
       </main>
@@ -383,7 +409,7 @@ export default async function Home() {
           WinLog<span>●</span>
         </Link>
         <span className="muted">
-          Remember your accomplishments. Recognize your capabilities.
+          Remember your accomplishments. Have your examples ready.
         </span>
         <Link href={user ? "/app" : "/login"}>
           {user ? "Continue" : "Log in"}

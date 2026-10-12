@@ -36,17 +36,20 @@ export function ThemeToggle() {
 
   useEffect(() => setReady(true), []);
 
-  const dark = resolvedTheme === "dark";
+  const dark = ready && resolvedTheme === "dark";
+  const label = !ready
+    ? "Change appearance"
+    : dark
+      ? "Switch to light appearance"
+      : "Switch to dark appearance";
 
   return (
     <button
       type="button"
       className="ac-icon-button"
       disabled={!ready}
-      aria-label={
-        dark ? "Switch to light appearance" : "Switch to dark appearance"
-      }
-      title={dark ? "Switch to light appearance" : "Switch to dark appearance"}
+      aria-label={label}
+      title={label}
       onClick={() => setTheme(dark ? "light" : "dark")}
     >
       {ready && (

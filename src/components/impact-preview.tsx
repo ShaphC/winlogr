@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { WinRecord } from "@/lib/wins";
 import "@/app/paper.css";
 import "@/app/(private)/app/highlights.css";
+import { LoadingIndicator } from "@/components/spinner";
 
 type DocumentOptions = {
   title: string;
@@ -203,7 +204,7 @@ export function ImpactPreview({
   }
 
   if (!ready) {
-    return <p role="status">Loading your highlights…</p>;
+    return <LoadingIndicator label="Loading your highlights…" />;
   }
 
   return (

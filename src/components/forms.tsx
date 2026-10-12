@@ -8,6 +8,7 @@ import {
   saveReflection,
   saveSettings,
 } from "@/app/actions";
+import { Spinner } from "@/components/spinner";
 import type { ActionState } from "@/lib/validation";
 
 function Status({ state }: { state: ActionState }) {
@@ -116,6 +117,7 @@ export function AuthForm({ register = false }: { register?: boolean }) {
         </label>
       )}
       <button disabled={pending}>
+        {pending && <Spinner />}
         {pending ? "Please wait…" : register ? "Create account" : "Log in"}
       </button>
       <Status state={state} />
@@ -159,6 +161,7 @@ export function WinForm({
           />
         </label>
         <button disabled={pending}>
+          {pending && <Spinner />}
           {pending ? "Saving…" : win ? "Save changes" : "Save win"}
         </button>
       </div>
@@ -180,6 +183,7 @@ export function DeleteForm({ id }: { id: string }) {
     >
       <input type="hidden" name="id" value={id} />
       <button className="text-button danger" disabled={pending}>
+        {pending && <Spinner />}
         {pending ? "Deleting…" : "Delete"}
       </button>
       <Status state={state} />
@@ -217,6 +221,7 @@ export function ReflectionForm() {
         <input name="date" type="date" defaultValue={today()} required />
       </label>
       <button disabled={pending}>
+        {pending && <Spinner />}
         {pending ? "Saving…" : "Save this reflection"}
       </button>
       <Status state={state} />

@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { saveWin } from "@/app/actions";
+import { Spinner } from "@/components/spinner";
 const ModalContext = createContext<() => void>(() => {});
 export function AddWinButton({ label = "Add a win" }: { label?: string }) {
   const open = useContext(ModalContext);
@@ -132,6 +133,7 @@ export function WinModalProvider({
               />
             </label>
             <button disabled={pending}>
+              {pending && <Spinner />}
               {pending ? "Saving…" : "Save win"}
             </button>
           </div>

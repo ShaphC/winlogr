@@ -776,3 +776,221 @@ html:has(.wl-home) {
   outline: 2px solid var(--accent);
   outline-offset: 5px;
 }
+
+/* Marketing navbar */
+.wl-home .wl-nav > nav.row {
+  align-items: center;
+  gap: 20px;
+}
+.wl-home .wl-nav-logout {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+.wl-home .wl-nav .ac-icon-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+}
+.wl-home .wl-nav-logout > .ac-signout-button {
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.wl-home .wl-nav .ac-icon-button:hover:not(:disabled),
+.wl-home .wl-nav-logout > .ac-signout-button:hover:not(:disabled) {
+  background: var(--soft);
+  opacity: 1;
+}
+.wl-home .wl-nav .ac-icon-button:focus-visible,
+.wl-home .wl-nav-logout > .ac-signout-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+html[data-theme="light"] .wl-nav .ac-icon-button,
+html[data-theme="light"] .wl-nav-logout > .ac-signout-button {
+  border-color: color-mix(in srgb, var(--ink) 28%, var(--panel));
+}
+
+/* Upright stacked cards */
+.wl-preview-demo {
+  min-width: 0;
+  padding-right: 24px;
+}
+.wl-preview-stack {
+  display: grid;
+  isolation: isolate;
+  padding-top: 20px;
+}
+.wl-stack-card {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+/* Demo toolbar */
+.wl-demo-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.wl-demo-search,
+.wl-demo-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.wl-demo-search {
+  flex: 1;
+  min-width: 0;
+}
+.wl-demo-search svg {
+  flex-shrink: 0;
+}
+.wl-demo-month {
+  margin: 14px 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Illustrative tiles */
+.wl-demo-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 20px;
+}
+.wl-demo-tile {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 24px 10px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+.wl-demo-tile.is-selected {
+  border-color: var(--accent);
+}
+.wl-demo-check {
+  position: absolute;
+  top: 7px;
+  left: 9px;
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--accent);
+  font-size: 9px;
+}
+.wl-demo-tile.is-selected .wl-demo-check {
+  border-color: var(--accent);
+}
+.wl-demo-tile p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  min-height: 0;
+  overflow: hidden;
+  margin: 0 0 8px;
+  font-size: 10px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.wl-demo-date {
+  margin-top: auto;
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 8px;
+}
+
+/* Illustrative Highlights paper */
+.wl-demo-paper {
+  margin: 20px 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  box-shadow: 0 8px 25px rgb(20 30 60 / 5%);
+}
+.wl-demo-paper header {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.wl-demo-person {
+  color: var(--muted);
+  font-size: 11px;
+}
+.wl-demo-paper h3 {
+  margin: 9px 0 0;
+  font-size: 20px;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+.wl-demo-outcome {
+  display: flex;
+  gap: 12px;
+  padding-top: 17px;
+}
+.wl-demo-outcome > span {
+  padding-top: 3px;
+  color: var(--muted);
+  font-size: 9px;
+}
+.wl-demo-outcome p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Consistent example headings */
+.wl-tiles-example h2,
+.wl-highlights-example h2 {
+  margin: 9px 0 18px;
+  font-size: 25px;
+  line-height: 1.3;
+  letter-spacing: -0.6px;
+}
+
+@media (max-width: 900px) {
+  .wl-demo-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .wl-home .wl-nav > nav.row {
+    gap: 12px;
+  }
+  .wl-demo-paper {
+    padding: 20px;
+  }
+  .wl-tiles-example h2,
+  .wl-highlights-example h2 {
+    font-size: 22px;
+  }
+}

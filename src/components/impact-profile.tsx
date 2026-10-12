@@ -18,6 +18,7 @@ import type { Profile } from "@/lib/impact-schema";
 import type { WinRecord } from "@/lib/wins";
 import { formatWinDate } from "@/lib/win-date";
 import { AddWinButton } from "@/components/add-win-modal";
+import { Spinner } from "@/components/spinner";
 import "@/app/paper.css";
 
 type Panel = "update" | "sources" | "edit" | "manage";
@@ -201,6 +202,7 @@ function ProfileEditor({
       )}
       <div className="profile-modal-actions">
         <button disabled={pending}>
+          {pending && <Spinner />}
           {pending ? "Saving…" : "Save changes"}
         </button>
         <button
@@ -243,6 +245,7 @@ function RemoveProfile({
     >
       <input name="id" type="hidden" value={id} />
       <button className="secondary-button danger" disabled={pending}>
+        {pending && <Spinner />}
         {pending ? "Deleting…" : "Delete this version"}
       </button>
       {state.error && (
