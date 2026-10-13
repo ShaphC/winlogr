@@ -26,7 +26,7 @@ const accomplishments = [
 ];
 
 export function MarketingPreview() {
-  const [active, setActive] = useState<"tiles" | "highlights">("tiles");
+  const [active, setActive] = useState<"tiles" | "highlights">("highlights");
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
